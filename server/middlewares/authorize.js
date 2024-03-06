@@ -1,4 +1,4 @@
-import CustomError from '../utils/custom-error.js';
+import CustomError from '../helpers/custom-error.js';
 
 const authorize = (roles = []) => {
   return (req, res, next) => {
@@ -9,4 +9,4 @@ const authorize = (roles = []) => {
   };
 };
 
-export default authorize;
+export { authorize } ;

@@ -2,7 +2,8 @@ import { Router } from 'express';
 import { authenticate } from '../middlewares/auth.js';
 import { authorize } from '../middlewares/authorize.js';
 import userService from '../services/user.js';
-
+import { getProfile, createProfile, updateProfile, deleteProfile } from '../controllers/user.js';
+ 
 const router = Router();
 
 router.get('/profile', authenticate, authorize(['user']), getProfile);

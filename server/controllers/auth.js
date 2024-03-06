@@ -2,7 +2,7 @@ import jwt from 'jsonwebtoken';
 import { hash, compare } from 'bcrypt';
 import { User } from '../models/user.js';
 import config from '../config.js';
-import { validateRegistration } from '../utils/validation.js';
+import { validateRegistration } from '../helpers/validation.js';
 
 const register = async (req, res, next) => {
   try {
