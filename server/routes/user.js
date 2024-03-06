@@ -6,7 +6,7 @@ import { getProfile, createProfile, updateProfile, deleteProfile } from '../cont
  
 const router = Router();
 
-router.get('/profile', authenticate, authorize(['user']), getProfile);
+router.get('/profile', authenticate, authorize(['user', 'admin']), getProfile);
 router.post('/profile', authenticate, authorize(['user']), createProfile);
 router.put('/profile', authenticate, authorize(['user']), updateProfile);
 router.delete('/profile', authenticate, authorize(['user']), deleteProfile);

@@ -7,7 +7,7 @@ const validateUsername = (username) => {
   }
 }
 
-const validateRegistration = (username, email, password) => {
+const validateRegistration = (username, email, role,  password) => {
   const errors = [];
 
   if (!username || !validator.isLength(username, { min: 3, max: 30 })) {
@@ -16,6 +16,10 @@ const validateRegistration = (username, email, password) => {
 
     if (!email || !validator.isEmail(email)) {
         errors.push('Invalid email address');
+    }
+
+    if (!role || !validator.isIn(role, ['user', 'admin'])) {
+        errors.push('Invalid role');
     }
 
     if (!password || !validator.isLength(password, { min: 8 })) {

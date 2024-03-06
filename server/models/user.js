@@ -21,6 +21,11 @@ const UserSchema = new Schema({
     type: String,
     required: [true, 'Please provide a password'],
   },
+  role: {
+    type: String,
+    enum: ['user', 'admin'],
+    default: 'user',
+  },
   revokedTokens: [String], // Array to store revoked tokens
 });
 
@@ -49,13 +54,15 @@ UserSchema.pre('save', async function (next) {
   }
 });
 
-UserSchema.methods.comparePassword = async function (userPassword) {
-  try {
-    const isMatch = await bcrypt.compare(userPassword, this.password);
-    return isMatch;
-  } catch (error) {
-    throw error;
-  }
+UserSchema.methods.comparePassword = function (userPassword) {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const isMatch = await bcrypt.compare(userPassword, this.password);
+      resolve(isMatch);
+    } catch (error) {
+      reject(error);
+    }
+  });
 };
 
 const UserProfileSchema = new Schema({
