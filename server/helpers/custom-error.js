@@ -1,8 +1,20 @@
 class CustomError extends Error {
-    constructor(message, statusCode) {
-      super(message);
-      this.statusCode = statusCode;
-    }
+  constructor(message, statusCode, errorData = null) {
+    super(message);
+    this.statusCode = statusCode;
+    this.errorData = errorData;
   }
-  
-  export default CustomError;
+
+  toResponseObject() {
+    return {
+      error: {
+        message: this.message,
+        status: 'error',
+        statusCode: this.statusCode,
+        data: this.errorData,
+      },
+    };
+  }
+}
+
+export default CustomError;

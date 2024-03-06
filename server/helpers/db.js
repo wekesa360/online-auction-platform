@@ -4,8 +4,6 @@ import config from '../config.js';
 const connectDB = async () => {
   try {
     const options = {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
       maxPoolSize: 10, // Set the maximum number of connections in the pool
       serverSelectionTimeoutMS: 5000, // Set the server selection timeout
       socketTimeoutMS: 45000, // Set the socket timeout
