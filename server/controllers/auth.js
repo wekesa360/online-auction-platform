@@ -46,7 +46,6 @@ const login = async (req, res, next) => {
     if (!passwordMatch) {
       return res.status(401).json({ message: "Incorrect password" });
     }
-    console.log(user);
 
     const tokenPayload = {
       userId: user._id,
@@ -64,4 +63,13 @@ const login = async (req, res, next) => {
   }
 };
 
-export { register, login };
+const getAuthUser = async (req, res, next) => {
+  try {
+    const { password, revokedTokens, __v, ...userWithoutPassword } = req.user.toObject();
+    res.json({ "user": userWithoutPassword });
+  } catch (error) {
+    next(error);
+  }
+}
+
+export { register, login, getAuthUser };
