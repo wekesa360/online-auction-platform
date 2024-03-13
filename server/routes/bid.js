@@ -21,20 +21,20 @@ router.get(
 router.post(
   "/bid",
   authenticate,
-  authorize(["admin"]),
+  authorize(["user"]),
   bidController.createBid
 );
 router.put(
   "/bid/:id",
   authenticate,
-  authorize(["admin"]),
+  authorize(["user"]),
   bidController.update
 );
 
 router.delete(
   "/bid/:id",
   authenticate,
-  authorize(["admin"]),
+  authorize(["user"]),
   bidController._delete
 );
 
