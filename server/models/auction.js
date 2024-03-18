@@ -37,6 +37,11 @@ const AuctionSchema = new Schema({
         type: String,
         required: [true, 'Please provide an image URL'],
     },
+    auctioneer: {  
+        type: Schema.Types.ObjectId,
+        ref: 'Auctioneer',
+        required: [true, 'Please provide an auctioneer for the auction'],
+    },
     createdBy: {
         type: Schema.Types.ObjectId,
         ref: 'User',

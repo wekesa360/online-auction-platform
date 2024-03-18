@@ -7,9 +7,11 @@ import { Server } from "socket.io";
 import authRoutes from './routes/auth.js';
 import userRoutes from './routes/user.js';
 import auctionRoutes from './routes/auction.js';
+import auctioneerRoutes from './routes/auctioneer.js';
 import bidRoutes from './routes/bid.js';
 import errorHandler from './helpers/error-handler.js'; // Error handling middleware
 import config from './config.js'; // Configuration module
+
 
 const app = express();
 const server = http.createServer(app);
@@ -32,6 +34,7 @@ app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/user', userRoutes);
 app.use('/api/v1/an', auctionRoutes);
 app.use('/api/v1/bd', bidRoutes);
+app.use('/api/v1/au', auctioneerRoutes);
 
 // Error handling middleware
 app.use(errorHandler);

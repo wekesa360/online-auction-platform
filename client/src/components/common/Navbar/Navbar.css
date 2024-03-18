@@ -1,0 +1,43 @@
+/* Navbar.css */
+
+.navbar {
+    box-shadow: none;
+    background-color: transparent;
+    align-items: center;
+    padding: 1rem;
+  }
+  
+  .navbar-brand {
+    font-weight: bold;
+    color: #4285f4; /* Google Blue */
+    font-size: 1.5rem;
+  }
+  
+  .move-end {
+    justify-self: end; /* Align the element to the end horizontally */
+  }
+
+  .nav-link {
+    color: #333333;
+    font-weight: 500;
+    transition: color 0.3s;
+    margin-right: 1rem;
+  }
+  
+  .nav-link:hover {
+    color: #4285f4; /* Google Blue */
+  }
+  
+  .contact-btn {
+    background-color: #4285f4; /* Google Blue */
+    color: #ffffff;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    font-weight: 500;
+    transition: background-color 0.3s;
+  }
+  
+  .contact-btn:hover {
+    background-color: #3367d6; /* Darker Google Blue */
+  }

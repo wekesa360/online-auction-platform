@@ -12,9 +12,9 @@ import {
 const router = Router();
 
 router.get("/profile", authenticate, authorize(["user", "admin"]), getProfile);
-router.post("/profile", authenticate, authorize(["user"]), createProfile);
-router.put("/profile", authenticate, authorize(["user"]), updateProfile);
-router.delete("/profile", authenticate, authorize(["user"]), deleteProfile);
+router.post("/profile", authenticate, authorize(["user", "admin"]), createProfile);
+router.put("/profile", authenticate, authorize(["user"], "admin"), updateProfile);
+router.delete("/profile", authenticate, authorize(["user", "admin"]), deleteProfile);
 
 router.post(
   "/revoke-token",

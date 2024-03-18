@@ -1,0 +1,14 @@
+.admin-page {
+    margin: 35px;
+}
+
+.render-section {
+    padding: 40px;
+}
+
+.link-column {
+    height: 100%;
+    padding-top:10%;
+    padding-bottom: 130%;
+    background-color: lightblue;
+}
