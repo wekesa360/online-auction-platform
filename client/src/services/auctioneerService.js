@@ -4,7 +4,7 @@ const auctioneerService = {
   createAuctioneer: async (auctioneerData) => {
     try {
       const authToken = localStorage.getItem("authToken");
-      const { data } = await api.post("/auctioneers", auctioneerData, {
+      const { data } = await api.post("au/auctioneers", auctioneerData, {
         headers: { Authorization: `Bearer ${authToken}` }
       });
       return data;
@@ -15,7 +15,7 @@ const auctioneerService = {
 
   getAuctioneerById: async (id) => {
     try {
-      const { data } = await api.get(`/auctioneers/${id}`);
+      const { data } = await api.get(`au/auctioneers/${id}`);
       return data;
     } catch (error) {
       throw error;
@@ -24,7 +24,7 @@ const auctioneerService = {
 
   getAllAuctioneers: async () => {
     try {
-      const { data } = await api.get("/auctioneers");
+      const { data } = await api.get("au/auctioneers");
       return data;
     } catch (error) {
       throw error;
@@ -34,7 +34,7 @@ const auctioneerService = {
   updateAuctioneer: async (id, auctioneerData) => {
     try {
       const authToken = localStorage.getItem("authToken");
-      const { data } = await api.put(`/auctioneers/${id}`, auctioneerData, {
+      const { data } = await api.put(`au/auctioneers/${id}`, auctioneerData, {
         headers: { Authorization: `Bearer ${authToken}` }
       });
       return data;
@@ -46,7 +46,7 @@ const auctioneerService = {
   deleteAuctioneer: async (id) => {
     try {
       const authToken = localStorage.getItem("authToken");
-      await api.delete(`/auctioneers/${id}`, {
+      await api.delete(`au/auctioneers/${id}`, {
         headers: { Authorization: `Bearer ${authToken}` }
       });
     } catch (error) {

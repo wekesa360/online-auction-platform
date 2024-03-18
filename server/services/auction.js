@@ -18,6 +18,12 @@ async function getAll() {
   return await AuctionModel.find().populate('auctioneer'); 
 }
 
+async function getById(id) {
+  const auction = await AuctionModel.findById(id).populate('auctioneer');
+  if (!auction) throw new CustomError("Auction not found", 404);
+  return auction;
+}
+
 async function update(id, auctionParam) {
   const auction = await AuctionModel.findById(id);
   if (!auction) throw new CustomError("Auction not found", 404);

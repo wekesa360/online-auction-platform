@@ -1,4 +1,6 @@
 import auctionService from "../services/auction.js";
+import {auctioneerService} from "../services/auctioneer.js";
+import CustomError from "../helpers/custom-error.js";
 import { io } from '../server.js';
 
 const auctionController = {
@@ -11,6 +13,14 @@ const auctionController = {
 
 async function createAuction(req, res, next) {
   try {
+    const auctioneer = await auctioneerService.getAuctioneerByUserId(req.user._id);
+    console.log(auctioneer);
+    if (auctioneer) {
+      req.body.auctioneer = auctioneer;
+    } else {
+      throw new CustomError('Auctioneer not found', 404);
+    }
+
     await auctionService.createAuction(req.body);
     res.status(201).json({ message: "Auction created successfully" });
 

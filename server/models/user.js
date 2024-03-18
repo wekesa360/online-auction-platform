@@ -24,7 +24,7 @@ const UserSchema = new Schema({
   role: {
     type: String,
     enum: ['user', 'admin'],
-    default: 'user',
+    required: [true, 'Please provide a role'],
   },
   revokedTokens: [String], // Array to store revoked tokens
 });

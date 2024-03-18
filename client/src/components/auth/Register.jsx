@@ -1,19 +1,19 @@
-import React, { useState, useContext } from 'react';
-import { AuthContext } from '../../context/AuthContext';
-import { useNavigate } from 'react-router-dom';
-import { register } from '../../services/authService';
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { register } from '../../store/actions'; // Import the register action
 import './Register.css';
+import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
     const [formData, setFormData] = useState({
+        username: '',
         email: '',
         password: '',
-        username: '',
         role: '',
     });
 
     const [error, setError] = useState(null);
-    const { setAuthUser } = useContext(AuthContext);
+    const dispatch = useDispatch(); // Initialize dispatch
     const navigate = useNavigate();
 
     const handleChange = (e) => {
@@ -23,12 +23,23 @@ const Register = () => {
     const handleRegister = async (e) => {
         e.preventDefault();
         try {
-            const { data } = await register(formData);
-
-            setAuthUser(data.user);
-
+            await dispatch(register(formData));
+            if (formData.role === 'admin') {
+                navigate('/register/auctioneer');
+            } else {
             navigate('/login');
+            }
         } catch (error) {
+            if (error.message === 'internal_error') {
+                setError('Internal server error. Please try again later.');
+                console.error('Internal server error', error.message);
+                return;
+            }
+            if (error.message === 'INCORRECT_USERNAME') {
+                setError('Username or email is already taken');
+                console.error('Username or email is already taken', error.message);
+                return;
+            }
             setError('Failed to register. Please try again.');
             console.error('Failed to register', error.message);
         }
@@ -40,7 +51,7 @@ const Register = () => {
                 <h1 className="register-title">Register</h1>
                 <p className="text-center">Don't have an account? <span className="link-text">Login Here!</span></p>
                 <form onSubmit={handleRegister}>
-                <div className="form-group">
+                    <div className="form-group">
                         <input
                             type="text"
                             className="form-control"

@@ -1,14 +1,16 @@
 import express from 'express';
-import { createAuctioneer, getAuctioneerById, getAllAuctioneers, updateAuctioneer, deleteAuctioneer } from '../controllers/auctioneerController.js';
+import { createAuctioneer, getAuctioneerById, getAllAuctioneers, updateAuctioneer, deleteAuctioneer } from '../controllers/auctioneer.js';
 import { authorize } from '../middlewares/authorize.js';
+import { authenticate } from "../middlewares/auth.js";
+
 
 const router = express.Router();
 
 // Routes for Auctioneers
-router.post('/auctioneers', authorize(['admin']), createAuctioneer);
-router.get('/auctioneers/:id', getAuctioneerById);
-router.get('/auctioneers', getAllAuctioneers);
-router.put('/auctioneers/:id', authorize(['admin']), updateAuctioneer);
-router.delete('/auctioneers/:id', authorize(['admin']), deleteAuctioneer); 
+router.post('/auctioneers', authenticate, authorize(['admin']), createAuctioneer);
+router.get('/auctioneers/:id',authenticate, getAuctioneerById);
+router.get('/auctioneers',authenticate, getAllAuctioneers);
+router.put('/auctioneers/:id',authenticate, authorize(['admin']), updateAuctioneer);
+router.delete('/auctioneers/:id',authenticate, authorize(['admin']), deleteAuctioneer); 
 
 export default router;

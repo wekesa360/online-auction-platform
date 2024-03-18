@@ -5,6 +5,7 @@ export const auctioneerService = {
   createAuctioneer,
   getAllAuctioneers,
   getAuctioneerById,
+  getAuctioneerByUserId,
   updateAuctioneer,
   deleteAuctioneer,
 };
@@ -16,6 +17,11 @@ async function createAuctioneer(auctioneerParams) {
 
 async function getAllAuctioneers() {
   return await AuctioneerModel.find();
+}
+
+
+async function getAuctioneerByUserId(userId) {
+  return await AuctioneerModel.findOne({ admin: userId });
 }
 
 async function getAuctioneerById(id) {

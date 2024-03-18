@@ -1,9 +1,16 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import DatePicker from 'react-datepicker';
+import { createAuction } from '../../store/actions';
 import 'react-datepicker/dist/react-datepicker.css';
+import { useDispatch } from 'react-redux';
 
-const AddAuctionForm = ({ onAuctionAdded }) => {
+
+
+
+const AddAuctionForm = () => {
+  const dispatch = useDispatch(); 
+
+
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [minimumBid, setMinimumBid] = useState('');
@@ -29,11 +36,9 @@ const AddAuctionForm = ({ onAuctionAdded }) => {
         endTime,
         startingPrice,
         imageUrl,
-        auctioneer,
       };
 
-      await axios.post('/auction', newAuction);
-      onAuctionAdded();
+      await dispatch(createAuction(newAuction));
       resetForm();
     } catch (error) {
       console.error('Error creating auction:', error);
@@ -50,7 +55,6 @@ const AddAuctionForm = ({ onAuctionAdded }) => {
     setEndTime('');
     setStartingPrice('');
     setImageUrl('');
-    setAuctioneer('');
   };
 
   return (
@@ -148,17 +152,6 @@ const AddAuctionForm = ({ onAuctionAdded }) => {
             id="imageUrl"
             value={imageUrl}
             onChange={(e) => setImageUrl(e.target.value)}
-            required
-          />
-        </div>
-        <div className="mb-3">
-          <label htmlFor="auctioneer" className="form-label">Auctioneer</label>
-          <input
-            type="text"
-            className="form-control"
-            id="auctioneer"
-            value={auctioneer}
-            onChange={(e) => setAuctioneer(e.target.value)}
             required
           />
         </div>

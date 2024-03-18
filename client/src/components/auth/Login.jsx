@@ -1,14 +1,15 @@
-import React, { useState, useContext } from "react";
-import { AuthContext } from "../../context/AuthContext";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { login } from "../../services/authService";
+import { useDispatch, useSelector } from "react-redux"; 
+import {login } from '../../store/actions'
 import "./Login.css";
 
 const Login = () => {
   const [formData, setFormData] = useState({ username: "", password: "" });
   const [error, setError] = useState(null);
-  const { setAuthUser } = useContext(AuthContext);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { isAuthenticated, isAdminFirstLogin } = useSelector((state) => state.auth);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -17,16 +18,31 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await login(formData);
-      setAuthUser(data);
-      navigate("/");
+       await dispatch(login(formData.username, formData.password));
+       if (isAuthenticated) {
+        if (isAdminFirstLogin) {
+          navigate('/register/auctioneer');
+        } 
+      } else {
+        navigate('/'); 
+        }
+
     } catch (error) {
-      setError("Failed to login. Please check your credentials.");
+      if (error.message === "INCORRECT_PASSWORD") {
+        setError("Incorrect password or email. Please try again");
+      } else if (error.message === 'INTERNAL_ERROR') {
+        setError("Something went wrong. Try again later")
+      } else if (error.message === 'NETWORK_ERROR') {
+        setError("Something wrong with your connection")
+      }
+      else {
+        setError(error.message);
+      }
     }
   };
 
   return (
-    <div className="login-container">
+    <div className="container ">
       <div className="login-card">
         <h1 className="login-title">Login</h1>
         <p className="text-center">Don't have an account? <span className="link-text">Sign Up Here!</span></p>

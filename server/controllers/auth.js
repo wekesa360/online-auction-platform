@@ -49,7 +49,8 @@ const login = async (req, res, next) => {
 
     const tokenPayload = {
       userId: user._id,
-      email: user.role,
+      email: user.email,
+      role: user.role,
     };
     // Generate and send the JWT token
     const token = jwt.sign({ userId: user._id }, config.jwtSecret, {

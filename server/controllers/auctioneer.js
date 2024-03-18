@@ -1,9 +1,14 @@
-import { auctioneerService } from '../services/auctioneerService.js';
+import { auctioneerService } from '../services/auctioneer.js';
 import CustomError from '../helpers/custom-error.js';
+import { request } from 'express';
 
 // Controller function to create a new auctioneer
 export const createAuctioneer = async (req, res, next) => {
   try {
+    const { _id: admin } = req.user; 
+    const auctioneer = await auctioneerService.getAuctioneerByUserId(admin);
+    req.body.admin = admin;
+    
     await auctioneerService.createAuctioneer(req.body);
     res.status(201).json({ message: 'Auctioneer created successfully' });
   } catch (error) {

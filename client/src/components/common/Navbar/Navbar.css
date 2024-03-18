@@ -28,7 +28,7 @@
     color: #4285f4; /* Google Blue */
   }
   
-  .contact-btn {
+  .logout-btn {
     background-color: #4285f4; /* Google Blue */
     color: #ffffff;
     border: none;
@@ -38,6 +38,6 @@
     transition: background-color 0.3s;
   }
   
-  .contact-btn:hover {
+  .logout-btn:hover {
     background-color: #3367d6; /* Darker Google Blue */
   }

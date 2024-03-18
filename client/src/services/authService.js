@@ -1,30 +1,48 @@
 import api from "../utils/api";
 
-const userService = {
+const authService = {
   login: async (username, password) => {
     try {
       const { data: loginData } = await api.post("/auth/login", { username, password });
       const authToken = loginData.token;
       localStorage.setItem("authToken", authToken);
       const { data: authData } = await api.get('/auth/me', { headers: { Authorization: `Bearer ${authToken}` } });
-      console.log('Auth user', authData);
       return authData;
     } catch (error) {
-      if (error.response && error.response.status === 401) {
-        throw new Error("Incorrect email or password");
+      if (error.response && error.response.status === 500) {
+        throw new Error("internal_error")
+      }
+      if (error.response && error.response.status === 401 ) {
+        if (error.response.data && error.response.data.message) {
+          throw new Error(error.response.data.message);
+        }else {
+          throw error
+        }
+      }
+      throw error;
+    }
+  },
+  
+
+  register: async (registrationData) => {
+    try {
+      const { data } = await api.post("/auth/register", registrationData);
+      return data;
+    } catch (error) {
+      if (error.response && error.response.status === 500) {
+        throw new Error("internal_error")
+      }
+      if (error.response && error.response.status === 400 ) {
+        if (error.response.data && error.response.data.message) {
+          throw new Error(error.response.data.message);
+        }else {
+          throw error
+        }
       }
       throw error;
     }
   },
 
-  register: async (email, password, username, role) => {
-    try {
-      const { data } = await api.post("/auth/register", { email, password, username, role });
-      return data;
-    } catch (error) {
-      throw error;
-    }
-  },
 
   logout: async () => {
     try {
@@ -36,4 +54,4 @@ const userService = {
 
 };
 
-export default userService;
+export default authService;

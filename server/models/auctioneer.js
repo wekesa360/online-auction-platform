@@ -10,11 +10,6 @@ const AuctioneerSchema = new Schema({
     type: String,
     required: [true, 'Please provide a description for the auctioneer'],
   },
-  admin: {
-    type: Schema.Types.ObjectId,
-    ref: 'User',
-    required: true,
-  },
   auctions: [
     {
       type: Schema.Types.ObjectId,
@@ -29,10 +24,6 @@ const AuctioneerSchema = new Schema({
     type: String,
     required: [true, 'Please provide a contact information for the auctioneer'],
   },
-  website: {
-    type: String,
-    required: [true, 'Please provide a website URL for the auctioneer'],
-  },
   establishedYear: {
     type: Number,
     required: [true, 'Please provide the year the auctioneer was established'],
@@ -40,6 +31,11 @@ const AuctioneerSchema = new Schema({
   logoUrl: {
     type: String,
     required: [true, 'Please provide a logo URL for the auctioneer'],
+  },
+  admin: {
+    type: Schema.Types.ObjectId,
+    ref: 'User',
+    required: true,
   },
 });
 
