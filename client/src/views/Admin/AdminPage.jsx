@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import AuctionList from './AuctionList';
-import AddAuctionForm from './AddAuctionForm';
-import AuctionDetails from './AuctionDetails';
-import AuctioneerManagement from './AuctioneerManagement';
-import './AdminPage.css'
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import AuctionList from "./AuctionList";
+import AddAuctionForm from "./AddAuctionForm";
+import AuctionDetails from "./AuctionDetails";
+import AuctioneerManagement from "./AuctioneerManagement";
+import "./AdminPage.css";
 
 const AdminPage = () => {
   const [auctions, setAuctions] = useState([]);
   const [selectedAuction, setSelectedAuction] = useState(null);
-  const [activeSection, setActiveSection] = useState('auctionList');
+  const [activeSection, setActiveSection] = useState("auctionList");
 
   useEffect(() => {
     fetchAuctions();
@@ -17,10 +17,10 @@ const AdminPage = () => {
 
   const fetchAuctions = async () => {
     try {
-      const response = await axios.get('/auction');
+      const response = await axios.get("/auction");
       setAuctions(response.data);
     } catch (error) {
-      console.error('Error fetching auctions:', error);
+      console.error("Error fetching auctions:", error);
     }
   };
 
@@ -30,13 +30,18 @@ const AdminPage = () => {
 
   const renderSection = () => {
     switch (activeSection) {
-      case 'auctionList':
-        return <AuctionList auctions={auctions} onAuctionClick={setSelectedAuction} />;
-      case 'addAuction':
+      case "auctionList":
+        return (
+          <AuctionList
+            auctions={auctions}
+            onAuctionClick={setSelectedAuction}
+          />
+        );
+      case "addAuction":
         return <AddAuctionForm onAuctionAdded={fetchAuctions} />;
-      case 'auctionDetails':
+      case "auctionDetails":
         return <AuctionDetails auction={selectedAuction} />;
-      case 'auctioneerManagement':
+      case "auctioneerManagement":
         return <AuctioneerManagement />;
       default:
         return null;
@@ -45,30 +50,56 @@ const AdminPage = () => {
 
   return (
     <div>
-      <header>
-        {/* Header component */}
-      </header>
-      <div className="admin-page">
-        <div className="row">
-          <nav className="col-3 mt-4 mt-5 px-4 d-flex justify-content-end">
-            <ul className="nav flex-column link-column">
-              <li className="nav-item">
-                <button className="nav-link btn btn-link" onClick={() => handleSectionChange('auctionList')}>Auction List</button>
-              </li>
-              <li className="nav-item">
-                <button className="nav-link btn btn-link" onClick={() => handleSectionChange('addAuction')}>Add Auction</button>
-              </li>
-              <li className="nav-item">
-                <button className="nav-link btn btn-link" onClick={() => handleSectionChange('auctioneerManagement')}>Auctioneer Management</button>
-              </li>
-            </ul>
-          </nav>
-          <main className="col-9 mt-4 render-section">{renderSection()}</main>
+      <header></header>
+
+      <div className="admin-page"> 
+        <div className="">
+          <div className="row">
+            <div className="col-lg-4 d-flex justify-content-end">
+              <div className="sidebar">
+                <div className="sidebar-sticky">
+                  <ul className="nav flex-column">
+                    <li className="nav-item">
+                      <button
+                        className="nav-link btn btn-link text-start"
+                        onClick={() => handleSectionChange("auctionList")}
+                      >
+                        <i className="bi bi-list-ul"></i> Auction List
+                      </button>
+                    </li>
+                    <li className="nav-item">
+                      <button
+                        className="nav-link btn btn-link text-start"
+                        onClick={() => handleSectionChange("addAuction")}
+                      >
+                        <i className="bi bi-plus-circle"></i> Add Auction
+                      </button>
+                    </li>
+                    <li className="nav-item">
+                      <button
+                        className="nav-link btn btn-link text-start"
+                        onClick={() =>
+                          handleSectionChange("auctioneerManagement")
+                        }
+                      >
+                        <i className="bi bi-people"></i> Auctioneer Management
+                      </button>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <div className="col-lg-8 px-5 py-5">
+              <main className="col-9 mt-4 render-section">
+                {renderSection()}
+              </main>
+            </div>
+          </div>
         </div>
       </div>
-      <footer>
-        {/* Footer component */}
-      </footer>
+
+      <footer></footer>
     </div>
   );
 };

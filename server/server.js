@@ -23,7 +23,7 @@ const PORT = config.port || 3000;
 connectDB();
 
 // Logging middleware
-//app.use(morgan('combined'));
+app.use(morgan('combined'));
 
 // CORS middleware
 app.use(cors());

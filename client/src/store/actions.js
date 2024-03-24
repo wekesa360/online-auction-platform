@@ -115,17 +115,56 @@ export const createAuctioneer = (data) => async (dispatch) => {
   }
 };
 
+// get all auctioneers
+export const fetchAuctioneers = () => async (dispatch) => {
+  dispatch({ type: actionTypes.FETCH_AUCTIONEERS_REQUEST });
+  try {
+    const auctioneers = await auctioneerService.getAllAuctioneers();
+    console.log("In actions [Auctioneers] : ", auctioneers);
+    dispatch({ type: actionTypes.FETCH_AUCTIONEERS_SUCCESS, payload: auctioneers });
+  } catch (error) {
+    dispatch({ type: actionTypes.FETCH_AUCTIONEERS_FAILURE, payload: error.message });
+  }
+}
+
 // Edit auctioneer action creator
-export const editAuctioneer = (auctioneerId, updatedData) => async (dispatch) => {
+export const updateAuctioneer = (auctioneerId, updatedData) => async (dispatch) => {
   dispatch({ type: actionTypes.EDIT_AUCTIONEER_REQUEST });
   try {
-    const updatedAuctioneer = await auctioneerService.editAuctioneer(auctioneerId, updatedData);
+    const updatedAuctioneer = await auctioneerService.updateAuctioneer(auctioneerId, updatedData);
     dispatch({ type: actionTypes.EDIT_AUCTIONEER_SUCCESS, payload: updatedAuctioneer });
+    dispatch(fetchAuctioneers());
   } catch (error) {
+    console.log("Error in actions [Auctioneers] : ", error.message);
     dispatch({ type: actionTypes.EDIT_AUCTIONEER_FAILURE, payload: error.message });
   }
 };
 
 
+// Delete Auctioneer
+export const deleteAuctioneer = (auctioneerId) => async (dispatch) => {
+  dispatch({ type: actionTypes.DELETE_AUCTIONEER_REQUEST });
+  try {
+    await auctioneerService.deleteAuctioneer(auctioneerId);
+    dispatch({ type: actionTypes.DELETE_AUCTIONEER_SUCCESS, payload: auctioneerId });
+  } catch (error) {
+    dispatch({ type: actionTypes.DELETE_AUCTIONEER_FAILURE, payload: error.message });
+  }
+};
 
 
+
+  // fetch auctioneer
+  export const fetchAuctioneer = (auctioneerId) => async (dispatch) => {
+    dispatch({ type: actionTypes.FETCH_AUCTIONEER_REQUEST });
+    try {
+      const auctioneers = await auctioneerService.getAllAuctioneers(auctioneerId);
+      dispatch({ type: actionTypes.FETCH_AUCTIONEER_SUCCESS, payload: auctioneers });
+    } catch (error) {
+      dispatch({ type: actionTypes.FETCH_AUCTIONEER_FAILURE, payload: error.message });
+    }
+  }
+
+  export const deleteAuctioneerSuccess = (auctioneerId) => async (dispatch) => {
+    dispatch({ type: actionTypes.DELETE_AUCTIONEER_SUCCESS, payload: auctioneerId});
+  }

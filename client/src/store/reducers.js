@@ -13,6 +13,7 @@ const authInitialState = {
   isAdminFirstLogin: false,
 };
 
+
 const authReducer = (state = authInitialState, action) => {
   switch (action.type) {
     case actionTypes.REGISTER_REQUEST:
@@ -47,12 +48,6 @@ const authReducer = (state = authInitialState, action) => {
         ...state,
         loading: false,
         error: action.payload,
-      };
-    case actionTypes.LOGOUT:
-      return {
-        ...state,
-        isAuthenticated: false,
-        user: null,
       };
     default:
       return state;
@@ -125,12 +120,34 @@ const profileReducer = (state = profileInitialState, action) => {
 
 // Auctioneer reducer
 const auctioneerInitialState = {
-  loading: false,
+  auctioneers: [],
+  loading: true,
   error: null,
 };
 
 const auctioneerReducer = (state = auctioneerInitialState, action) => {
   switch (action.type) {
+    // case fetsch auctioneers
+    case actionTypes.FETCH_AUCTIONEER_REQUEST:
+      return {
+        ...state,
+        loading: true,
+        error: null,
+      };
+    case actionTypes.FETCH_AUCTIONEERS_SUCCESS:
+      // Handle success action if needed
+      return {
+        ...state,
+        auctioneers: action.payload,
+        loading: false,
+        error: null,
+      };
+    case actionTypes.FETCH_AUCTIONEER_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
     case actionTypes.CREATE_AUCTIONEER_REQUEST:
     case actionTypes.EDIT_AUCTIONEER_REQUEST:
       return {
@@ -153,6 +170,11 @@ const auctioneerReducer = (state = auctioneerInitialState, action) => {
         loading: false,
         error: action.payload,
       };
+      case actionTypes.DELETE_AUCTIONEER_SUCCESS:
+        return {
+          ...state,
+          auctioneers: state.auctioneers.filter(auctioneer => auctioneer.id !== action.payload),
+        };
     default:
       return state;
   }

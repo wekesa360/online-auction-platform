@@ -35,6 +35,11 @@ async function updateAuctioneer(id, auctioneerParams) {
   await auctioneer.save();
 }
 
-async function deleteAuctioneer(id) {
-  await AuctioneerModel.findByIdAndRemove(id);
-}
+async function deleteAuctioneer(auctioneerId) {
+  try {
+    const result = await AuctioneerModel.findByIdAndDelete(auctioneerId);
+    return result;
+  } catch (error) {
+    throw new Error(`Failed to delete auctioneer: ${error.message}`);
+  }
+};

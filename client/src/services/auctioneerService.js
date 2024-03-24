@@ -24,7 +24,10 @@ const auctioneerService = {
 
   getAllAuctioneers: async () => {
     try {
-      const { data } = await api.get("au/auctioneers");
+      const authToken = localStorage.getItem("authToken");
+      const { data } = await api.get("au/auctioneers", {
+        headers: { Authorization: `Bearer ${authToken}` }
+    });
       return data;
     } catch (error) {
       throw error;
