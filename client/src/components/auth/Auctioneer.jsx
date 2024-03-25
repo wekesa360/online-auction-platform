@@ -88,7 +88,7 @@ return (
                     />
                 </div>
                 <div className="row">
-                    <div className="col-md-6">
+                    <div className="col-md-12">
               <div className="form-group">
                 <input
                   type="text"
@@ -103,7 +103,7 @@ return (
             </div>
             <div className="col-md-6">
               <div className="form-group">
-                <input
+                {/* <input
                   type="text"
                   className="form-control"
                   name="logoUrl"
@@ -111,7 +111,7 @@ return (
                   value={formData.logoUrl}
                   onChange={handleChange}
                   required
-                />
+                /> */}
               </div>
             </div>
           </div>

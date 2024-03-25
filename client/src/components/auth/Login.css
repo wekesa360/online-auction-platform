@@ -19,6 +19,7 @@
   .link-text{
     color:#007bff;
     font-weight: 400;
+    cursor: pointer;
   }
   
   .login-title {

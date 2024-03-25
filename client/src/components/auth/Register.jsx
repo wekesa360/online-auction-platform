@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { register } from '../../store/actions'; // Import the register action
 import './Register.css';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link} from 'react-router-dom';
 
 const Register = () => {
     const [formData, setFormData] = useState({
@@ -49,7 +49,7 @@ const Register = () => {
         <div className="register-container">
             <div className="register-card">
                 <h1 className="register-title">Register</h1>
-                <p className="text-center">Don't have an account? <span className="link-text">Login Here!</span></p>
+                <p className="text-center">Don't have an account? <Link to="/login" className="link-text">Sign up Here!</Link></p>
                 <form onSubmit={handleRegister}>
                     <div className="form-group">
                         <input

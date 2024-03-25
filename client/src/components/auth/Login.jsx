@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux"; 
 import {login } from '../../store/actions'
 import "./Login.css";
+import { Link } from 'react-router-dom';
 
 const Login = () => {
   const [formData, setFormData] = useState({ username: "", password: "" });
@@ -45,7 +46,7 @@ const Login = () => {
     <div className="container ">
       <div className="login-card">
         <h1 className="login-title">Login</h1>
-        <p className="text-center">Don't have an account? <span className="link-text">Sign Up Here!</span></p>
+        <p className="text-center">Don't have an account? <Link to="/register" className="link-text">Sign up Here!</Link></p>
         <form onSubmit={handleLogin}>
           <div className="form-group">
             <input
@@ -73,7 +74,7 @@ const Login = () => {
           <button type="submit" className="btn btn-primary login-btn">
             Login
           </button>
-          <p className="text-center mt-3">Forgot Password? <span className="link-text">Click Here!</span></p>
+          {/* <p className="text-center mt-3">Forgot Password? <Link to="/register" className="link-text">Click Here!</Link></p> */}
 
         </form>
       </div>

@@ -51,22 +51,23 @@ const AuctionCard = ({
             </button>
           )}
           {showBidForm && (
-            <form className="bid-form" onSubmit={handleBidSubmit}>
+            <form className="bid-form mb-4" onSubmit={handleBidSubmit}>
               <input
                 type="number"
-                className="form-group"
+                className="form-control"
                 value={bidAmount}
                 onChange={handleBidAmountChange}
                 placeholder="Enter your bid"
                 required
               />
+              <br/>
               <button type="submit" className="btn btn-primary">
                 Submit Bid
               </button>
             </form>
           )}
           {showBidForm && (
-            <button className="close-btn" onClick={handleBidFormToggle}>
+            <button className="close-btn my-1" onClick={handleBidFormToggle}>
               Close
             </button>
           )}

@@ -41,6 +41,19 @@ const bidService = {
       throw error;
     }
   },
+
+  getLatestBidForAuction: async (bidId) => {
+    try {
+      const authToken = localStorage.getItem("authToken");
+      const response = await api.get(`bd/bid/latest/${bidId}`, {
+      headers: { Authorization: `Bearer ${authToken}` }
+      });
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching latest bid:', error);
+      throw error;
+    }
+  },
   
 
   updateBid: async (id, bidData) => {

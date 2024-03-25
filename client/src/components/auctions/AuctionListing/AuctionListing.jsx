@@ -9,12 +9,12 @@ const AuctionListing = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedAuction, setSelectedAuction] = useState(null);
+  const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
     fetchAuctions();
   }, []);
 
- 
   const fetchAuctions = async () => {
     try {
       const data = await auctionService.getAllAuctions();
@@ -22,7 +22,7 @@ const AuctionListing = () => {
         ...auction,
         bidStarts: `${auction.startingDate} ${auction.startingTime}`,
         bidEnds: formatDateAndTime(auction.endDate, auction.endTime),
-        currentBid: auction.bids.length > 0 ? auction.bids[0].amount : 0, // Extract currentBid from bids array
+        currentBid: auction.bids.length > 0 ? auction.bids[0].amount : 0,
       }));
       setAuctions(updatedAuctions);
       setLoading(false);
@@ -34,9 +34,10 @@ const AuctionListing = () => {
 
   function formatDateAndTime(date, time) {
     const auctionDateTime = `${date}T${time}`;
-    const formattedDateTime = `${auctionDateTime.toString().split('T')[0]} at ${auctionDateTime}`;
+    const formattedDateTime = `${auctionDateTime.toString().split('T')[0]} at ${time}`;
     return formattedDateTime;
   }
+
   const handleReadMoreClick = (auction) => {
     setSelectedAuction(auction);
   };
@@ -45,12 +46,25 @@ const AuctionListing = () => {
     setSelectedAuction(null);
   };
 
+  const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value);
+  };
+
+  const filteredAuctions = auctions.filter((auction) =>
+    auction.title.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   return (
     <div className="auction-listing">
       <div className="listing-header">
         <h1>Auction Listings</h1>
         <div className="search-bar">
-          <input type="text" placeholder="Search for auctions..." />
+          <input
+            type="text"
+            placeholder="Search for auctions..."
+            value={searchQuery}
+            onChange={handleSearchChange}
+          />
           <button>Search</button>
         </div>
       </div>
@@ -61,7 +75,7 @@ const AuctionListing = () => {
           <div>Error: {error.message}</div>
         ) : (
           <div className="row">
-            {auctions.map((auction) => (
+            {filteredAuctions.map((auction) => (
               <AuctionCard
                 key={auction._id}
                 id={auction._id}

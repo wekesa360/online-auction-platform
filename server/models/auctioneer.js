@@ -28,10 +28,10 @@ const AuctioneerSchema = new Schema({
     type: Number,
     required: [true, 'Please provide the year the auctioneer was established'],
   },
-  logoUrl: {
-    type: String,
-    required: [true, 'Please provide a logo URL for the auctioneer'],
-  },
+  // logoUrl: {
+  //   type: String,
+  //   required: [true, 'Please provide a logo URL for the auctioneer'],
+  // },
   admin: {
     type: Schema.Types.ObjectId,
     ref: 'User',
