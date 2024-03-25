@@ -59,7 +59,7 @@ const Navbar = () => {
                   </li>
                 ) : (
                   <li className="nav-item">
-                    <Link className="nav-link" to="/user-dashboard">
+                    <Link className="nav-link" to="/user-account">
                       User Dashboard
                     </Link>
                   </li>

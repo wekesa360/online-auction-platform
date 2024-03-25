@@ -29,7 +29,10 @@ const auctionService = {
     try {
       const authToken = localStorage.getItem("authToken");
       const { data } = await api.post("/an/auction", auctionData, {
-        headers: { Authorization: `Bearer ${authToken}` }
+        headers: { 
+          Authorization: `Bearer ${authToken}`,
+          "Content-Type": "multipart/form-data" 
+      }
       });
       return data;
     } catch (error) {

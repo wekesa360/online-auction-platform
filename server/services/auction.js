@@ -32,7 +32,9 @@ async function update(id, auctionParam) {
 }
 
 async function _delete(id) {
-  await AuctionModel.findByIdAndRemove(id);
+  await AuctionModel.findByIdAndDelete(id);
 }
+
+
 
 export default auctionService;

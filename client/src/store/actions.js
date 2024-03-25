@@ -64,12 +64,49 @@ export const logout = () => async (dispatch) => {
 export const placeBid = (auctionId, amount) => async (dispatch) => {
   dispatch({ type: actionTypes.PLACE_BID_REQUEST });
   try {
-    const bidData = await bidService.placeBid(auctionId, amount);
+    const bidData = await bidService.createBid(auctionId, amount);
     dispatch({ type: actionTypes.PLACE_BID_SUCCESS, payload: bidData });
   } catch (error) {
     dispatch({ type: actionTypes.PLACE_BID_FAILURE, payload: error.message });
   }
 };
+
+// fetch all user Bids
+export const fetchBids = () => async (dispatch) => {
+  dispatch({ type: actionTypes.FETCH_BIDS_REQUEST });
+  try {
+    const bids = await bidService.getAllBids();
+    dispatch({ type: actionTypes.FETCH_BIDS_SUCCESS, payload: bids });
+  } catch (error) {
+    dispatch({ type: actionTypes.FETCH_BIDS_FAILURE, payload: error.message });
+  }
+}
+
+
+//update bid
+export const updateBid = () => async (dispatch) => {
+  dispatch({ type: actionTypes.UPDATE_BID_REQUEST });
+  try {
+    const bids = await bidService.getAllBids();
+    dispatch({ type: actionTypes.UPDATE_BID_SUCCESS, payload: bids });
+  } catch (error) {
+    dispatch({ type: actionTypes.UPDATE_BID_FAILURE, payload: error.message });
+  }
+};
+
+
+// delete bid
+export const deleteBid = (bidId) => async (dispatch) => {
+  dispatch({ type: actionTypes.DELETE_BID_REQUEST });
+  try {
+    await bidService.deleteBid(bidId);
+    dispatch({ type: actionTypes.DELETE_BID_SUCCESS, payload: bidId });
+  } catch (error) {
+    dispatch({ type: actionTypes.DELETE_BID_FAILURE, payload: error.message });
+  }
+};
+
+
 
 // Create an auction
 export const createAuction = (data) => async (dispatch) => {
@@ -83,13 +120,36 @@ export const createAuction = (data) => async (dispatch) => {
 };
 
 // Edit auction action creator
-export const editAuction = (auctionId, updatedData) => async (dispatch) => {
+export const updateAuction = (auctionId, updatedData) => async (dispatch) => {
   dispatch({ type: actionTypes.EDIT_AUCTION_REQUEST });
   try {
     const updatedAuction = await auctionService.editAuction(auctionId, updatedData);
     dispatch({ type: actionTypes.EDIT_AUCTION_SUCCESS, payload: updatedAuction });
   } catch (error) {
     dispatch({ type: actionTypes.EDIT_AUCTION_FAILURE, payload: error.message });
+  }
+};
+
+// delete auction
+export const deleteAuction = (auctionId) => async (dispatch) => {
+  console.log("In actions The ID for [deleteAuction] : ", auctionId);
+  dispatch({ type: actionTypes.DELETE_AUCTION_REQUEST });
+  try {
+    await auctionService.deleteAuction(auctionId);
+    dispatch({ type: actionTypes.DELETE_AUCTION_SUCCESS, payload: auctionId });
+  } catch (error) {
+    dispatch({ type: actionTypes.DELETE_AUCTION_FAILURE, payload: error.message });
+  }
+};
+
+// Fetch all auctions action creator
+export const fetchAuctions = () => async (dispatch) => {
+  dispatch({ type: actionTypes.FETCH_AUCTIONS_REQUEST });
+  try {
+    const auctions = await auctionService.getAllAuctions();
+    dispatch({ type: actionTypes.FETCH_AUCTIONS_SUCCESS, payload: auctions });
+  } catch (error) {
+    dispatch({ type: actionTypes.FETCH_AUCTIONS_FAILURE, payload: error.message });
   }
 };
 
@@ -152,9 +212,7 @@ export const deleteAuctioneer = (auctioneerId) => async (dispatch) => {
   }
 };
 
-
-
-  // fetch auctioneer
+// fetch auctioneer
   export const fetchAuctioneer = (auctioneerId) => async (dispatch) => {
     dispatch({ type: actionTypes.FETCH_AUCTIONEER_REQUEST });
     try {

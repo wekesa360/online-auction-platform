@@ -4,7 +4,7 @@ const bidService = {
   getAllBids: async () => {
     try {
       const authToken = localStorage.getItem("authToken");
-      const { data } = await api.get("/bid", {
+      const { data } = await api.get("bd/bid", {
         headers: { Authorization: `Bearer ${authToken}` }
       });
       return data;
@@ -16,7 +16,7 @@ const bidService = {
   getBidById: async (id) => {
     try {
       const authToken = localStorage.getItem("authToken");
-      const { data } = await api.get(`/bid/${id}`, {
+      const { data } = await api.get(`bd/bid/${id}`, {
         headers: { Authorization: `Bearer ${authToken}` }
       });
       return data;
@@ -25,10 +25,15 @@ const bidService = {
     }
   },
 
-  createBid: async (bidData) => {
+  createBid: async (auctionId, bidAmount) => {
     try {
+      console.log(auctionId, bidAmount)
       const authToken = localStorage.getItem("authToken");
-      const { data } = await api.post("/bid", bidData, {
+      const bidData = {
+        auctionId: auctionId,
+        amount: bidAmount
+      };
+      const { data } = await api.post("bd/bid", bidData, {
         headers: { Authorization: `Bearer ${authToken}` }
       });
       return data;
@@ -36,11 +41,12 @@ const bidService = {
       throw error;
     }
   },
+  
 
   updateBid: async (id, bidData) => {
     try {
       const authToken = localStorage.getItem("authToken");
-      const { data } = await api.put(`/bid/${id}`, bidData, {
+      const { data } = await api.put(`bd/bid/${id}`, bidData, {
         headers: { Authorization: `Bearer ${authToken}` }
       });
       return data;
@@ -52,7 +58,7 @@ const bidService = {
   deleteBid: async (id) => {
     try {
       const authToken = localStorage.getItem("authToken");
-      await api.delete(`/bid/${id}`, {
+      await api.delete(`bd/bid/${id}`, {
         headers: { Authorization: `Bearer ${authToken}` }
       });
     } catch (error) {

@@ -12,7 +12,8 @@ export const bidService = {
 };
 
 async function createBid(bidParam) {
-  const { amount, auctionId, userId } = bidParam;
+  console.log("bidParam", bidParam);
+  const { auctionId, amount, userId, createdAt } = bidParam;
   const auction = await Auction.findById(auctionId).populate(
     "createdBy",
     "username"
@@ -31,6 +32,7 @@ async function createBid(bidParam) {
     amount,
     auction: auctionId,
     bidder: userId,
+    timestamp: createdAt,
   });
   const savedBid = await bid.save();
   auction.bids = auction.bids.concat(savedBid._id);
@@ -65,8 +67,9 @@ async function getBid(id) {
   return bid;
 }
 
-async function _delete(id) {
-  await bidModel.findByIdAndRemove(id);
+async function _delete(id) { 
+  console.log("We are here in delete bid")
+  await bidModel.findByIdAndDelete(id);
 }
 
 export default bidService;

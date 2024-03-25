@@ -10,10 +10,12 @@ const bidController = {
 
 async function createBid(req, res, next) {
   try {
+    req.body.userId = req.user._id;
+    req.body.createdAt = new Date();
     const bid = await bidService.createBid(req.body);
 
     // Emit a WebSocket event when a new bid is created
-    req.io.getIO().emit("bids", { action: "create", bid: bid });
+    // req.io.getIO().emit("bids", { action: "create", bid: bid });
     
     res.json(bid);
   } catch (error) {
@@ -53,6 +55,7 @@ async function update(req, res, next) {
 
 async function _delete(req, res, next) {
   try {
+    console.log("We are here", req.params.id);
     await bidService._delete(req.params.id);
     res.json({ message: "Bid deleted successfully" });
   } catch (error) {

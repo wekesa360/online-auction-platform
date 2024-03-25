@@ -75,7 +75,7 @@ async function update(id, userParam) {
 }
 
 async function _delete(id) {
-  await UserModel.findByIdAndRemove(id);
+  await UserModel.findByIdAndDelete(id);
 }
 
 async function revokeToken(userId, token) {

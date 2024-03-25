@@ -1,46 +1,33 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import ProfileSection from './ProfileSection';
-import CurrentBidsSection from './CurrentBidsSection';
-import BidHistorySection from './BidHistorySection';
-import PlaceBidForm from './PlaceBidForm';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import "./AdminPage.css";
+import BidsManagement from "./BidsManagement"; // Import the BidsManagement component
 
 const UserAccountPage = () => {
-  const [activeSection, setActiveSection] = useState('profile');
-  const [userProfile, setUserProfile] = useState(null);
-  const [currentBids, setCurrentBids] = useState([]);
-  const [bidHistory, setBidHistory] = useState([]);
+  const [profile, setProfile] = useState(null);
+  const [bids, setBids] = useState([]);
+  const [activeSection, setActiveSection] = useState("Manage Your Bids");
 
   useEffect(() => {
-    fetchUserProfile();
-    fetchCurrentBids();
-    fetchBidHistory();
+    fetchProfile();
+    fetchBids();
   }, []);
 
-  const fetchUserProfile = async () => {
+  const fetchProfile = async () => {
     try {
-      const response = await axios.get('/profile');
-      setUserProfile(response.data);
+      const response = await axios.get("/profile");
+      setProfile(response.data);
     } catch (error) {
-      console.error('Error fetching user profile:', error);
+      console.error("Error fetching profile:", error);
     }
   };
 
-  const fetchCurrentBids = async () => {
+  const fetchBids = async () => {
     try {
-      const response = await axios.get('/bid');
-      setCurrentBids(response.data);
+      const response = await axios.get("/bids");
+      setBids(response.data);
     } catch (error) {
-      console.error('Error fetching current bids:', error);
-    }
-  };
-
-  const fetchBidHistory = async () => {
-    try {
-      const response = await axios.get('/bid/history');
-      setBidHistory(response.data);
-    } catch (error) {
-      console.error('Error fetching bid history:', error);
+      console.error("Error fetching bids:", error);
     }
   };
 
@@ -50,48 +37,76 @@ const UserAccountPage = () => {
 
   const renderSection = () => {
     switch (activeSection) {
-      case 'profile':
-        return <ProfileSection userProfile={userProfile} onProfileUpdate={fetchUserProfile} />;
-      case 'currentBids':
-        return <CurrentBidsSection currentBids={currentBids} />;
-      case 'bidHistory':
-        return <BidHistorySection bidHistory={bidHistory} />;
-      case 'placeBid':
-        return <PlaceBidForm onBidPlaced={fetchCurrentBids} />;
+      case "Your Bids":
+        return <BidsManagement bids={bids} />; // Render BidsManagement component
+      // case "Profile":
+      //   return <Profile profile={profile} />; // Render Profile component
+      // case "Manage Account":
+      //   return <ManageAccount onDeleteAccount={deleteAccount} />; // Render ManageAccount component
       default:
         return null;
     }
   };
 
+  const deleteAccount = async () => {
+    try {
+      // Add logic to delete the user account
+      console.log("User account deleted successfully!");
+    } catch (error) {
+      console.error("Error deleting account:", error);
+    }
+  };
+
   return (
     <div>
-      <header>
-        {/* Header component */}
-      </header>
-      <div className="user-account-page container">
-        <div className="row">
-          <nav className="col-3 mt-4">
-            <ul className="nav flex-column">
-              <li className="nav-item">
-                <button className="nav-link btn btn-link" onClick={() => handleSectionChange('profile')}>Profile</button>
-              </li>
-              <li className="nav-item">
-                <button className="nav-link btn btn-link" onClick={() => handleSectionChange('currentBids')}>Current Bids</button>
-              </li>
-              <li className="nav-item">
-                <button className="nav-link btn btn-link" onClick={() => handleSectionChange('bidHistory')}>Bid History</button>
-              </li>
-              <li className="nav-item">
-                <button className="nav-link btn btn-link" onClick={() => handleSectionChange('placeBid')}>Place Bid</button>
-              </li>
-            </ul>
-          </nav>
-          <main className="col-9 mt-4">{renderSection()}</main>
+      <header></header>
+
+      <div className="admin-page">
+        <div className="">
+          <div className="row">
+            <div className="col-lg-4 d-flex justify-content-end">
+              <div className="sidebar">
+                <div className="sidebar-sticky">
+                  <ul className="nav flex-column">
+                    <li className="nav-item">
+                      <button
+                        className="nav-link btn btn-link text-start"
+                        onClick={() => handleSectionChange("Manage Your Bids")}
+                      >
+                        <i className="bi bi-currency-dollar"></i> Manage Your Bids
+                      </button>
+                    </li>
+                    <li className="nav-item">
+                      <button
+                        className="nav-link btn btn-link text-start"
+                        onClick={() => handleSectionChange("Profile")}
+                      >
+                        <i className="bi bi-person"></i> Profile
+                      </button>
+                    </li>
+                    <li className="nav-item">
+                      <button
+                        className="nav-link btn btn-link text-start"
+                        onClick={() => handleSectionChange("Manage Account")}
+                      >
+                        <i className="bi bi-gear"></i> Manage Account
+                      </button>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <div className="col-lg-8 px-5 py-5">
+              <main className="col-9 mt-4 render-section">
+                {renderSection()}
+              </main>
+            </div>
+          </div>
         </div>
       </div>
-      <footer>
-        {/* Footer component */}
-      </footer>
+
+      <footer></footer>
     </div>
   );
 };

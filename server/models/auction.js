@@ -33,10 +33,12 @@ const AuctionSchema = new Schema({
         type: Number,
         required: [true, 'Please provide a starting price'],
     },
-    imageUrl: {
+    images: { data: Buffer, contentType: String },
+
+    imageUrl : {
         type: String,
-        required: [true, 'Please provide an image URL'],
     },
+    
     createdBy: {
         type: Schema.Types.ObjectId,
         ref: 'User',

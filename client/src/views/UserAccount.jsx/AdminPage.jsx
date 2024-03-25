@@ -31,15 +31,15 @@ const AdminPage = () => {
 
   const renderSection = () => {
     switch (activeSection) {
-      // case "auctionList":
-      //   return (
-      //     <AuctionList
-      //       auctions={auctions}
-      //       onAuctionClick={setSelectedAuction}
-      //     />
-      //   );
-      case "addAuction":
-        return <AuctionManagement onAuctionAdded={fetchAuctions} />;
+      case "auctionList":
+        return (
+          <AuctionList
+            auctions={auctions}
+            onAuctionClick={setSelectedAuction}
+          />
+        );
+      // case "addAuction":
+      //   return <AuctionManagement onAuctionAdded={fetchAuctions} />;
       case "auctionDetails":
         return <AuctionDetails auction={selectedAuction} />;
       case "auctioneerManagement":

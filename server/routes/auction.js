@@ -2,8 +2,12 @@ import { Router } from "express";
 import { authenticate } from "../middlewares/auth.js";
 import { authorize } from "../middlewares/authorize.js";
 import auctionController from "../controllers/auction.js";
+import multer from 'multer';
 
 const router = Router();
+
+const upload = multer({ dest: 'uploads/' });
+
 
 router.get(
   "/auction",
@@ -21,6 +25,7 @@ router.post(
   "/auction",
   authenticate,
   authorize(["admin"]),
+  upload.single('image'),
   auctionController.createAuction
 );
 router.put(
@@ -35,5 +40,7 @@ router.delete(
   authorize(["admin"]),
   auctionController._delete
 );
+
+router.get('auction/:id/image', auctionController.getAuctionImage);
 
 export default router;

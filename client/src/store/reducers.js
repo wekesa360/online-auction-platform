@@ -81,6 +81,26 @@ const bidReducer = (state = bidInitialState, action) => {
         loading: false,
         error: action.payload,
       };
+      // handle fetch bids
+    case actionTypes.FETCH_BIDS_REQUEST:
+      return {
+        ...state,
+        loading: true,
+        error: null,
+      };
+    case actionTypes.FETCH_BIDS_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        bids: action.payload,
+        error: null,
+      };
+    case actionTypes.FETCH_BIDS_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
     default:
       return state;
   }
@@ -180,10 +200,70 @@ const auctioneerReducer = (state = auctioneerInitialState, action) => {
   }
 };
 
+// Auction Reducer 
+const auctionInitialState = {
+  auctions: [],
+  loading: true,
+  error: null,
+};
+
+const auctionReducer = (state = auctionInitialState, action) => {
+  switch (action.type) {
+    case actionTypes.FETCH_AUCTIONS_REQUEST:
+      return {
+        ...state,
+        loading: true,
+        error: null,
+      };
+    case actionTypes.FETCH_AUCTIONS_SUCCESS:
+      return {
+        ...state,
+        auctions: action.payload,
+        loading: false,
+        error: null,
+      };
+    case actionTypes.FETCH_AUCTIONS_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+    case actionTypes.CREATE_AUCTION_REQUEST:
+    case actionTypes.EDIT_AUCTION_REQUEST:
+      return {
+        ...state,
+        loading: true,
+        error: null,
+      };
+    case actionTypes.CREATE_AUCTION_SUCCESS:
+    case actionTypes.EDIT_AUCTION_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        error: null,
+      };
+    case actionTypes.CREATE_AUCTION_FAILURE:
+    case actionTypes.EDIT_AUCTION_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+    case actionTypes.DELETE_AUCTION_SUCCESS:
+      return {
+        ...state,
+        auctions: state.auctions.filter(auction => auction.id !== action.payload),
+      };
+    default:
+      return state;
+  }
+};
+
 // Combine all reducers
 const rootReducer = combineReducers({
   auth: authReducer,
   bid: bidReducer,
+  auction: auctionReducer,
   profile: profileReducer,
   auctioneer: auctioneerReducer,
   // Add other reducers here if needed

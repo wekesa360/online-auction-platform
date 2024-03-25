@@ -11,11 +11,17 @@ import auctioneerRoutes from './routes/auctioneer.js';
 import bidRoutes from './routes/bid.js';
 import errorHandler from './helpers/error-handler.js'; // Error handling middleware
 import config from './config.js'; // Configuration module
+import path from 'path';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+
 
 
 const app = express();
 const server = http.createServer(app);
 const io = new Server(server);
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 
 const PORT = config.port || 3000;
@@ -30,6 +36,9 @@ app.use(cors());
 
 // Parse JSON request body
 app.use(express.json());
+
+
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/user', userRoutes);
 app.use('/api/v1/an', auctionRoutes);
