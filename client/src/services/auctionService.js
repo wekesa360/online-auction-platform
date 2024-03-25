@@ -2,8 +2,10 @@ import api from "../utils/api";
 
 const auctionService = {
   getAllAuctions: async () => {
+    
     try {
       const authToken = localStorage.getItem("authToken");
+      console.log("In auctionService", authToken);
       const { data } = await api.get("/an/auction", {
         headers: { Authorization: `Bearer ${authToken}` }
       });

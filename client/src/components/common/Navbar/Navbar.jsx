@@ -11,12 +11,15 @@ const Navbar = () => {
   const dispatch = useDispatch();
 
   const handleLogout = () => {
+    //localStorage.removeItem("authToken");
     dispatch(logout());
   };
 
+  // Check if authToken exists in localStorage
+  const authToken = localStorage.getItem("authToken");
 
-  return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light justify-content-center">
+    return (
+      <nav className="navbar navbar-expand-lg navbar-light bg-light justify-content-center">
       <div className="container">
         <Link className="navbar-brand" to="/">
           Auction Platform
@@ -49,7 +52,7 @@ const Navbar = () => {
                 Auctioneers
               </Link> */}
             </li>
-            {isLoggedIn ? (
+            {isLoggedIn || authToken !== null ? (
               <>
                 {isAdmin ? (
                   <li className="nav-item">
@@ -85,8 +88,8 @@ const Navbar = () => {
           </ul>
         </div>
       </div>
-    </nav>
-  );
-};
+      </nav>
+    );
+  }
 
 export default Navbar;
