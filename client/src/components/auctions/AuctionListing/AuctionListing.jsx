@@ -17,8 +17,13 @@ const AuctionListing = () => {
   const fetchAuctions = async () => {
     try {
       const data = await auctionService.getAllAuctions();
-      console.log(data)
-      setAuctions(data);
+      const updatedAuctions = data.map((auction) => ({
+        ...auction,
+        bidStarts: `${auction.startingDate} ${auction.startingTime}`,
+        bidEnds: `${auction.endDate} ${auction.endTime}`,
+        currentBid: auction.bids.length > 0 ? auction.bids[0].amount : 0, // Extract currentBid from bids array
+      }));
+      setAuctions(updatedAuctions);
       setLoading(false);
     } catch (error) {
       setError(error);
@@ -59,6 +64,7 @@ const AuctionListing = () => {
                 description={auction.description}
                 currentBid={auction.currentBid}
                 bidEnds={auction.bidEnds}
+                bidStart={auction.bidStart}
                 onReadMoreClick={() => handleReadMoreClick(auction)}
               />
             ))}

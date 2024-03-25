@@ -1,13 +1,21 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux'; // Import useDispatch hook
-import './AuctionCard.css';
-import { placeBid } from '../../../store/actions';
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import "./AuctionCard.css";
+import { placeBid } from "../../../store/actions";
 
-const AuctionCard = ({ id, imageUrl, title, description, currentBid, bidEnds, onReadMoreClick }) => {
-  const dispatch = useDispatch(); // Initialize useDispatch hook
+const AuctionCard = ({
+  id,
+  imageUrl,
+  title,
+  description,
+  currentBid,
+  bidEnds,
+  onReadMoreClick,
+}) => {
+  const dispatch = useDispatch();
 
   const [showBidForm, setShowBidForm] = useState(false);
-  const [bidAmount, setBidAmount] = useState('');
+  const [bidAmount, setBidAmount] = useState("");
 
   const handleBidFormToggle = () => {
     setShowBidForm(!showBidForm);
@@ -19,16 +27,14 @@ const AuctionCard = ({ id, imageUrl, title, description, currentBid, bidEnds, on
 
   const handleBidSubmit = (e) => {
     e.preventDefault();
-    // Dispatch bid action here
-    dispatch(placeBid(id, bidAmount)); // Assuming bidAction is your action creator
+    dispatch(placeBid(id, bidAmount));
 
-    // Reset bid amount and hide bid form
-    setBidAmount('');
+    setBidAmount("");
     setShowBidForm(false);
   };
 
   return (
-    <div className='col-lg-4'>
+    <div className="col-lg-4">
       <div className="auction-card">
         <img src={imageUrl} alt={title} />
         <div className="auction-details">
@@ -38,26 +44,31 @@ const AuctionCard = ({ id, imageUrl, title, description, currentBid, bidEnds, on
             <span className="current-bid">Current Bid: {currentBid}</span>
             <span className="bid-ends">Bid Ends: {bidEnds}</span>
           </div>
-          <br/>
+          <br />
           {!showBidForm && (
-            <button className="bid-btn" onClick={handleBidFormToggle}>Place Bid</button>
+            <button className="bid-btn" onClick={handleBidFormToggle}>
+              Place Bid
+            </button>
           )}
           {showBidForm && (
             <form className="bid-form" onSubmit={handleBidSubmit}>
               <input
                 type="number"
-                className='form-group'
+                className="form-group"
                 value={bidAmount}
                 onChange={handleBidAmountChange}
                 placeholder="Enter your bid"
                 required
               />
-              <button type="submit" className="btn btn-primary">Submit Bid</button> {/* Corrected button class */}
+              <button type="submit" className="btn btn-primary">
+                Submit Bid
+              </button>
             </form>
           )}
-          {/* close form */}
           {showBidForm && (
-            <button className="close-btn" onClick={handleBidFormToggle}>Close</button>
+            <button className="close-btn" onClick={handleBidFormToggle}>
+              Close
+            </button>
           )}
         </div>
       </div>
