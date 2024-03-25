@@ -35,7 +35,7 @@ const Navbar = () => {
         <div className="collapse navbar-collapse justify-content-center" id="navbarNav">
           <ul className="navbar-nav">
             <li className="nav-item">
-              <Link className="nav-link" to="/auctions">
+              <Link className="nav-link" to="/">
                 Home
               </Link>
             </li>
@@ -45,9 +45,9 @@ const Navbar = () => {
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/auctions">
+              {/* <Link className="nav-link" to="/auctions">
                 Auctioneers
-              </Link>
+              </Link> */}
             </li>
             {isLoggedIn ? (
               <>
