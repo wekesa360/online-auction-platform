@@ -12,7 +12,10 @@ const BidManagement = () => {
   const dispatch = useDispatch();
   const loading = useSelector((state) => state.bid.loading); // Update state selectors
   const bids = useSelector((state) => state.bid.bids); // Update state selectors
+  const user = useSelector((state) => state.auth.user); // Update state selectors
   const error = useSelector((state) => state.bid.error); // Update state selectors
+
+  console.log(user);
 
   useEffect(() => {
     dispatch(fetchBids());
@@ -28,8 +31,8 @@ const BidManagement = () => {
   const handleEdit = (bid) => {
     setSelectedBid(bid);
     setBidAmount(bid.amount); // Update state variable name
-    setBidderName(bid.bidderName); // Update state variable name
-    setBidTime(bid.time); // Update state variable name
+    setBidderName(user.email); // Update state variable name
+    setBidTime(bid.timestamp); // Update state variable name
     setShowAddForm(true);
     setEditMode(true);
   };

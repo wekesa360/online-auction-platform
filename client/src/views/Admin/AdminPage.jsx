@@ -61,19 +61,19 @@ const AdminPage = () => {
                 <div className="sidebar-sticky">
                   <ul className="nav flex-column">
                     <li className="nav-item">
-                      <button
+                      {/* <button
                         className="nav-link btn btn-link text-start"
                         onClick={() => handleSectionChange("auctionList")}
                       >
                         <i className="bi bi-list-ul"></i> Auction List
-                      </button>
+                      </button> */}
                     </li>
                     <li className="nav-item">
                       <button
                         className="nav-link btn btn-link text-start"
                         onClick={() => handleSectionChange("addAuction")}
                       >
-                        <i className="bi bi-plus-circle"></i> Add Auction
+                        <i className="bi bi-plus-circle"></i> Manage Auctions
                       </button>
                     </li>
                     <li className="nav-item">
@@ -83,7 +83,7 @@ const AdminPage = () => {
                           handleSectionChange("auctioneerManagement")
                         }
                       >
-                        <i className="bi bi-people"></i> Auctioneer Management
+                        <i className="bi bi-people"></i> Manage Auctioneer
                       </button>
                     </li>
                   </ul>

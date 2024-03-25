@@ -190,9 +190,9 @@ const AuctioneerManagement = () => {
         <thead>
           <tr>
             <th>Name</th>
-            <th>Email</th>
             <th>Contact</th>
             <th>Location</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
