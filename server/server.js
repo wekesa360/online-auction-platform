@@ -39,7 +39,7 @@ app.use(express.json());
 
 
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
-app.use('/api/v1/auth', authRoutes);
+app.use('/api/v1/auth', authRoutes); 
 app.use('/api/v1/user', userRoutes);
 app.use('/api/v1/an', auctionRoutes);
 app.use('/api/v1/bd', bidRoutes);

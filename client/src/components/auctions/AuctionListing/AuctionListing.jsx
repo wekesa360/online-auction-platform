@@ -14,13 +14,14 @@ const AuctionListing = () => {
     fetchAuctions();
   }, []);
 
+ 
   const fetchAuctions = async () => {
     try {
       const data = await auctionService.getAllAuctions();
       const updatedAuctions = data.map((auction) => ({
         ...auction,
         bidStarts: `${auction.startingDate} ${auction.startingTime}`,
-        bidEnds: `${auction.endDate} ${auction.endTime}`,
+        bidEnds: formatDateAndTime(auction.endDate, auction.endTime),
         currentBid: auction.bids.length > 0 ? auction.bids[0].amount : 0, // Extract currentBid from bids array
       }));
       setAuctions(updatedAuctions);
@@ -31,6 +32,11 @@ const AuctionListing = () => {
     }
   };
 
+  function formatDateAndTime(date, time) {
+    const auctionDateTime = `${date}T${time}`;
+    const formattedDateTime = `${auctionDateTime.toString().split('T')[0]} at ${auctionDateTime}`;
+    return formattedDateTime;
+  }
   const handleReadMoreClick = (auction) => {
     setSelectedAuction(auction);
   };
