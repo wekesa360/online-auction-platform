@@ -41,8 +41,10 @@ const AuctionCard = ({
           <h3>{title}</h3>
           <p>{description}</p>
           <div className="bid-info">
-            <span className="current-bid">Current Bid: {currentBid}</span>
-            <span className="bid-ends">Bid Ends: {bidEnds}</span>
+            <span className="current-bid font-weight-bold"><span className="text-primary font-weight-bold">Current Bid:</span> {currentBid}</span>
+          </div>
+          <div className="bid-info">
+            <span className="bid-ends font-weight-bold"><span className="text-primary font-weight-bold">Bid Ends:</span> {bidEnds}</span>
           </div>
           <br />
           {!showBidForm && (
@@ -66,11 +68,15 @@ const AuctionCard = ({
               </button>
             </form>
           )}
+          {/* readmore */}
           {showBidForm && (
             <button className="close-btn my-1" onClick={handleBidFormToggle}>
               Close
             </button>
           )}
+           <button className="btn btn-outline-primary readmore-btn" onClick={onReadMoreClick}>
+            Read More
+          </button>
         </div>
       </div>
     </div>

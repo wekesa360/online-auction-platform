@@ -43,7 +43,7 @@ async function createBid(bidParam) {
 async function getBids() {
   return await bidModel
     .find()
-    .populate("auction", "title")
+    .populate("auction")
     .populate("bidder", "username");
 }
 
@@ -59,8 +59,8 @@ async function updateBid(id, bidParam) {
 async function getBid(id) {
   const bid = await bidModel
     .findById(id)
-    .populate("auction", "title")
-    .populate("bidder", "username");
+    .populate("auction")
+    .populate("bidder");
   if (!bid) {
     throw new CustomError("Bid not found", 404);
   }

@@ -167,7 +167,7 @@ const AuctioneerManagement = () => {
               required
             />
           </div>
-          <div className="mb-3">
+          {/* <div className="mb-3">
             <label htmlFor="logoUrl" className="form-label">
               Logo URL
             </label>
@@ -179,7 +179,7 @@ const AuctioneerManagement = () => {
               onChange={(e) => setLogoUrl(e.target.value)}
               required
             />
-          </div>
+          </div> */}
           <button type="submit" className="btn btn-primary">
             {editMode ? "Update Auctioneer" : "Add Auctioneer"}
           </button>

@@ -36,22 +36,18 @@ async function createAuction(req, res, next) {
     const fileExtension = path.extname(req.file.originalname);
     const filename = `${Date.now()}-${req.file.filename}${fileExtension}`;
 
-    // Ensure that the destination directory exists
+
     if (!fs.existsSync(uploadDirectory)) {
       fs.mkdirSync(uploadDirectory, { recursive: true });
     }
 
-    // Move the uploaded file to the specified directory with the constructed filename
     fs.renameSync(req.file.path, path.join(uploadDirectory, filename));
 
-    // Construct the image URL based on the base URL and filename
     const imageUrl = `http://127.0.0.1:8000/uploads/${filename}`;
 
-    // Update the request body with the image URL
     req.body.imageUrl = imageUrl;
 
 
-    // Continue with the original auction creation logic using the modified req.body
     await auctionService.createAuction(req.body);
     res.status(201).json({ message: "Auction created successfully" });
 

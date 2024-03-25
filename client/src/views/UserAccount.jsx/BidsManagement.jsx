@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "./BidManagement.css"; // Update the CSS file name
+import AuctionDetailsModal from "../../components/auctions/AuctionDetailsModal/AuctionDetailsModal";
 import {
   deleteBid,
   updateBid,
-  createBid,
   fetchBids,
 } from "../../store/actions"; // Update the action imports
 
@@ -27,6 +27,7 @@ const BidManagement = () => {
   const [bidAmount, setBidAmount] = useState(""); // Update state variable name
   const [bidderName, setBidderName] = useState(""); // Update state variable name
   const [bidTime, setBidTime] = useState(""); // Update state variable name
+  const [viewItem, setViewItem] = useState(null);
 
   const handleEdit = (bid) => {
     setSelectedBid(bid);
@@ -41,6 +42,29 @@ const BidManagement = () => {
     dispatch(deleteBid(bidId));
   };
 
+
+  const handleViewItem = (auction) => {
+    const updatedAuction = {
+      ...auction,
+      bidStarts: `${auction.startingDate} ${auction.startingTime}`,
+      bidEnds: formatDateAndTime(auction.endDate, auction.endTime),
+      currentBid: auction.bids.length > 0 ? `Ksh ${new Intl.NumberFormat('en-KE', { style: 'currency', currency: 'KES' }).format(auction.bids[0].amount)}` : 'Ksh 0'
+    };
+    setViewItem(updatedAuction);
+  };
+  
+
+  function formatDateAndTime(date, time) {
+    const auctionDateTime = `${date}T${time}`;
+    const formattedDateTime = `${auctionDateTime.toString().split('T')[0]} at ${time}`;
+    return formattedDateTime;
+  }
+
+  const handleCloseModal = () => {
+    setViewItem(null);
+  };
+
+  console.log(bids)
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -79,10 +103,10 @@ const BidManagement = () => {
     <div className="mt-4">
       <h2>Bids</h2>
       {/* <button
-        className="btn btn-primary"
+        className="btn btn-primary "
         onClick={() => setShowAddForm(!showAddForm)}
       >
-        {showAddForm ? "Close Form" : "Add Bid"}
+        {showAddForm ? "Close Form" : ""}
       </button> */}
       {showAddForm && (
         <form onSubmit={handleSubmit}>
@@ -135,7 +159,7 @@ const BidManagement = () => {
         <thead>
           <tr>
             <th>Amount</th>
-            <th>Bidder Name</th>
+            <th>Item</th>
             <th>Time</th>
           </tr>
         </thead>
@@ -145,22 +169,28 @@ const BidManagement = () => {
           {bids ? (
             bids.map((bid) => (
               <tr key={bid.id}>
-                <td>{bid.amount}</td>
-                <td>{bid.bidderName}</td>
-                <td>{bid.time}</td>
+                <td>{new Intl.NumberFormat('en-KE', { style: 'currency', currency: 'KES' }).format(bid.amount)}</td>
+                <td>{bid.auction ? bid.auction.title : 'N/A'}</td>
+                <td>{new Date(bid.timestamp).toLocaleString()}</td>
                 <td>
-                  <button
+                  {/* <button
                     className="btn btn-secondary btn-sm"
                     onClick={() => handleEdit(bid)}
                   >
                     View
-                  </button>
-                  {/* <button
+                  </button> */}
+                  <button
                     className="btn btn-danger btn-sm"
                     onClick={() => handleDelete(bid.id)}
                   >
                     Delete
-                  </button> */}
+                  </button>
+                  <button
+                    className="btn btn-primary btn-sm"
+                    onClick={() => handleViewItem(bid.auction)}
+                  >
+                    view Item
+                  </button>
                 </td>
               </tr>
             ))
@@ -171,6 +201,12 @@ const BidManagement = () => {
           )}
         </tbody>
       </table>
+      {viewItem && (
+        <AuctionDetailsModal
+          auction={viewItem}
+          onClose={handleCloseModal}
+        />
+      )}
     </div>
   );
 };
