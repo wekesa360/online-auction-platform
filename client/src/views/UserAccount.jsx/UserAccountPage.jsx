@@ -77,22 +77,22 @@ const UserAccountPage = () => {
                         Bids
                       </button>
                     </li>
-                    <li className="nav-item">
+                    {/* <li className="nav-item">
                       <button
                         className="nav-link btn btn-link text-start"
                         onClick={() => handleSectionChange("Profile")}
                       >
                         <i className="bi bi-person"></i> Profile
                       </button>
-                    </li>
-                    <li className="nav-item">
+                    </li> */}
+                    {/* <li className="nav-item">
                       <button
                         className="nav-link btn btn-link text-start"
                         onClick={() => handleSectionChange("Manage Account")}
                       >
                         <i className="bi bi-gear"></i> Manage Account
                       </button>
-                    </li>
+                    </li> */}
                   </ul>
                 </div>
               </div>
