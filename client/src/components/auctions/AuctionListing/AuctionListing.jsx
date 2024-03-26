@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import AuctionCard from '../AuctionCard/AuctionCard';
-import AuctionDetailsModal from '../AuctionDetailsModal/AuctionDetailsModal';
-import './AuctionListing.css';
-import auctionService from '../../../services/auctionService';
+import React, { useState, useEffect } from "react";
+import AuctionCard from "../AuctionCard/AuctionCard";
+import AuctionDetailsModal from "../AuctionDetailsModal/AuctionDetailsModal";
+import "./AuctionListing.css";
+import auctionService from "../../../services/auctionService";
 
 const AuctionListing = () => {
   const [auctions, setAuctions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedAuction, setSelectedAuction] = useState(null);
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     fetchAuctions();
@@ -22,8 +22,10 @@ const AuctionListing = () => {
         ...auction,
         bidStarts: `${auction.startingDate} ${auction.startingTime}`,
         bidEnds: formatDateAndTime(auction.endDate, auction.endTime),
-        currentBid: auction.bids.length > 0 ? `Ksh ${auction.bids[0].amount.toLocaleString()}` : 'Ksh 0'
-
+        currentBid:
+          auction.bids.length > 0
+            ? `Ksh ${auction.bids[0].amount.toLocaleString()}`
+            : "Ksh 0",
       }));
       setAuctions(updatedAuctions);
       setLoading(false);
@@ -35,7 +37,9 @@ const AuctionListing = () => {
 
   function formatDateAndTime(date, time) {
     const auctionDateTime = `${date}T${time}`;
-    const formattedDateTime = `${auctionDateTime.toString().split('T')[0]} at ${time}`;
+    const formattedDateTime = `${
+      auctionDateTime.toString().split("T")[0]
+    } at ${time}`;
     return formattedDateTime;
   }
 

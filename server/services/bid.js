@@ -67,7 +67,7 @@ async function getBid(id) {
   return bid;
 }
 
-async function _delete(id) { 
+async function _delete(id) {
   console.log("We are here in delete bid")
   await bidModel.findByIdAndDelete(id);
 }

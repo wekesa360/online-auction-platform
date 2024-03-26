@@ -91,39 +91,39 @@ function generateToken(userId) {
 }
 
 async function getUserProfile(userId) {
-    const user = await UserModel.findById(userId);
-    if (!user) throw new CustomError('User not found', 404);
-  
-    const profile = await UserProfileModel.findOne({ user: userId });
-    return profile;
-  }
-  
-  async function createUserProfile(userId, profileData) {
-    const user = await UserModel.findById(userId);
-    if (!user) throw new CustomError('User not found', 404);
-  
-    const profile = new UserProfileModel({ user: userId, ...profileData });
-    await profile.save();
-    return profile;
-  }
-  
-  async function updateUserProfile(userId, profileData) {
-    const user = await UserModel.findById(userId);
-    if (!user) throw new CustomError('User not found', 404);
-  
-    const profile = await UserProfileModel.findOneAndUpdate(
-      { user: userId },
-      profileData,
-      { new: true, runValidators: true }
-    );
-    return profile;
-  }
-  
-  async function deleteUserProfile(userId) {
-    const user = await UserModel.findById(userId);
-    if (!user) throw new CustomError('User not found', 404);
-  
-    await UserProfileModel.findOneAndDelete({ user: userId });
-  }
+  const user = await UserModel.findById(userId);
+  if (!user) throw new CustomError('User not found', 404);
+
+  const profile = await UserProfileModel.findOne({ user: userId });
+  return profile;
+}
+
+async function createUserProfile(userId, profileData) {
+  const user = await UserModel.findById(userId);
+  if (!user) throw new CustomError('User not found', 404);
+
+  const profile = new UserProfileModel({ user: userId, ...profileData });
+  await profile.save();
+  return profile;
+}
+
+async function updateUserProfile(userId, profileData) {
+  const user = await UserModel.findById(userId);
+  if (!user) throw new CustomError('User not found', 404);
+
+  const profile = await UserProfileModel.findOneAndUpdate(
+    { user: userId },
+    profileData,
+    { new: true, runValidators: true }
+  );
+  return profile;
+}
+
+async function deleteUserProfile(userId) {
+  const user = await UserModel.findById(userId);
+  if (!user) throw new CustomError('User not found', 404);
+
+  await UserProfileModel.findOneAndDelete({ user: userId });
+}
 
 export default userService;

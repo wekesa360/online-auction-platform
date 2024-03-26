@@ -18,8 +18,8 @@ const Navbar = () => {
   // Check if authToken exists in localStorage
   const authToken = localStorage.getItem("authToken");
 
-    return (
-      <nav className="navbar navbar-expand-lg navbar-light bg-light justify-content-center">
+  return (
+    <nav className="navbar navbar-expand-lg navbar-light bg-light justify-content-center">
       <div className="container">
         <Link className="navbar-brand" to="/">
           Auction Platform
@@ -35,7 +35,10 @@ const Navbar = () => {
         >
           <span className="navbar-toggler-icon"></span>
         </button>
-        <div className="collapse navbar-collapse justify-content-center" id="navbarNav">
+        <div
+          className="collapse navbar-collapse justify-content-center"
+          id="navbarNav"
+        >
           <ul className="navbar-nav">
             <li className="nav-item">
               <Link className="nav-link" to="/">
@@ -67,9 +70,9 @@ const Navbar = () => {
                     </Link>
                   </li>
                 )}
-                    <button className="btn btn-primary logout-btn">
-                      <span onClick={handleLogout}>Logout</span>
-                    </button>
+                <button className="btn btn-primary logout-btn">
+                  <span onClick={handleLogout}>Logout</span>
+                </button>
               </>
             ) : (
               <>
@@ -88,8 +91,8 @@ const Navbar = () => {
           </ul>
         </div>
       </div>
-      </nav>
-    );
-  }
+    </nav>
+  );
+};
 
 export default Navbar;

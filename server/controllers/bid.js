@@ -16,7 +16,7 @@ async function createBid(req, res, next) {
 
     // Emit a WebSocket event when a new bid is created
     // req.io.getIO().emit("bids", { action: "create", bid: bid });
-    
+
     res.json(bid);
   } catch (error) {
     next(error);

@@ -1,5 +1,5 @@
 import auctionService from "../services/auction.js";
-import {auctioneerService} from "../services/auctioneer.js";
+import { auctioneerService } from "../services/auctioneer.js";
 import CustomError from "../helpers/custom-error.js";
 import { io } from '../server.js';
 import multer from 'multer';
@@ -52,7 +52,7 @@ async function createAuction(req, res, next) {
     res.status(201).json({ message: "Auction created successfully" });
 
     // Emit a WebSocket event when a new auction is created
-   // io.getIO().emit('auctions', { action: 'create', auction: req.body });
+    // io.getIO().emit('auctions', { action: 'create', auction: req.body });
   } catch (error) {
     next(error);
   }
@@ -72,7 +72,7 @@ async function getAll(req, res, next) {
         return auction.toObject();
       }
     });
-    
+
     res.json(auctions);
   } catch (error) {
     next(error);

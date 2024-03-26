@@ -12,17 +12,17 @@ const authService = {
       if (error.response && error.response.status === 500) {
         throw new Error("internal_error")
       }
-      if (error.response && error.response.status === 401 ) {
+      if (error.response && error.response.status === 401) {
         if (error.response.data && error.response.data.message) {
           throw new Error(error.response.data.message);
-        }else {
+        } else {
           throw error
         }
       }
       throw error;
     }
   },
-  
+
 
   register: async (registrationData) => {
     try {
@@ -32,10 +32,10 @@ const authService = {
       if (error.response && error.response.status === 500) {
         throw new Error("internal_error")
       }
-      if (error.response && error.response.status === 400 ) {
+      if (error.response && error.response.status === 400) {
         if (error.response.data && error.response.data.message) {
           throw new Error(error.response.data.message);
-        }else {
+        } else {
           throw error
         }
       }

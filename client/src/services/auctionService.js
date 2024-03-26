@@ -2,7 +2,7 @@ import api from "../utils/api";
 
 const auctionService = {
   getAllAuctions: async () => {
-    
+
     try {
       const authToken = localStorage.getItem("authToken");
       console.log("In auctionService", authToken);
@@ -31,10 +31,10 @@ const auctionService = {
     try {
       const authToken = localStorage.getItem("authToken");
       const { data } = await api.post("/an/auction", auctionData, {
-        headers: { 
+        headers: {
           Authorization: `Bearer ${authToken}`,
-          "Content-Type": "multipart/form-data" 
-      }
+          "Content-Type": "multipart/form-data"
+        }
       });
       return data;
     } catch (error) {

@@ -12,11 +12,11 @@ import AuctioneerForm from '../components/auth/Auctioneer';
 import { useSelector } from 'react-redux';
 
 const PrivateRoute = ({ element, isAuthenticated, ...rest }) => {
-  return isAuthenticated ? (
-    element
-  ) : (
-    <Navigate to="/login" replace state={{ from: rest.location }} />
-  );
+    return isAuthenticated ? (
+        element
+    ) : (
+        <Navigate to="/login" replace state={{ from: rest.location }} />
+    );
 };
 
 const AppRouter = () => {
@@ -25,15 +25,15 @@ const AppRouter = () => {
         <Router>
             <Navbar />
             <Routes>
-                <Route path="/" element={ <LandingPage /> } />
-                <Route path="/register" element={ < Register />} />
-                <Route path="/login" element={ < Login />} />
-                <Route path="/auction-listing" element = { <AuctionListing/> } />
+                <Route path="/" element={<LandingPage />} />
+                <Route path="/register" element={< Register />} />
+                <Route path="/login" element={< Login />} />
+                <Route path="/auction-listing" element={<AuctionListing />} />
                 <Route path="/user-account" element={<PrivateRoute isAuthenticated={isAuthenticated} element={<UserAccountPage />} />} />
-                <Route path="/register/auctioneer" element= {<AuctioneerForm/>} />
+                <Route path="/register/auctioneer" element={<AuctioneerForm />} />
                 <Route path="/admin" element={<PrivateRoute isAuthenticated={isAuthenticated && user.role === 'admin'} element={<AdminPage />} />} />
             </Routes>
-            <Footer/>
+            <Footer />
         </Router>
     );
 }

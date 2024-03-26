@@ -53,7 +53,7 @@ const AdminPage = () => {
     <div>
       <header></header>
 
-      <div className="admin-page"> 
+      <div className="admin-page">
         <div className="">
           <div className="row">
             <div className="col-lg-4 d-flex justify-content-end">

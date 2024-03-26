@@ -14,7 +14,7 @@ const BidSchema = new Schema({
         ref: 'User',
     },
     timestamp: { type: Date, default: Date.now },
-    });
+});
 
 BidSchema.set(
     'toJSON',

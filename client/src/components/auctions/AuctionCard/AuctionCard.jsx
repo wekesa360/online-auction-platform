@@ -41,10 +41,18 @@ const AuctionCard = ({
           <h3>{title}</h3>
           <p>{description}</p>
           <div className="bid-info">
-            <span className="current-bid font-weight-bold"><span className="text-primary font-weight-bold">Current Bid:</span> {currentBid}</span>
+            <span className="current-bid font-weight-bold">
+              <span className="text-primary font-weight-bold">
+                Current Bid:
+              </span>{" "}
+              {currentBid}
+            </span>
           </div>
           <div className="bid-info">
-            <span className="bid-ends font-weight-bold"><span className="text-primary font-weight-bold">Bid Ends:</span> {bidEnds}</span>
+            <span className="bid-ends font-weight-bold">
+              <span className="text-primary font-weight-bold">Bid Ends:</span>{" "}
+              {bidEnds}
+            </span>
           </div>
           <br />
           {!showBidForm && (
@@ -62,7 +70,7 @@ const AuctionCard = ({
                 placeholder="Enter your bid"
                 required
               />
-              <br/>
+              <br />
               <button type="submit" className="btn btn-primary">
                 Submit Bid
               </button>
@@ -74,7 +82,10 @@ const AuctionCard = ({
               Close
             </button>
           )}
-           <button className="btn btn-outline-primary readmore-btn" onClick={onReadMoreClick}>
+          <button
+            className="btn btn-outline-primary readmore-btn"
+            onClick={onReadMoreClick}
+          >
             Read More
           </button>
         </div>

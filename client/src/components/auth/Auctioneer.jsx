@@ -33,62 +33,64 @@ const AuctioneerForm = () => {
     }
   };
 
-return (
+  return (
     <div className="auctioneer-form-container">
-        <div className="auctioneer-form-card ">
-            <h1 className="auctioneer-form-title">Register organization as Auctioneer</h1>
-            <form onSubmit={handleCreateAuctioneer}>
-                <div className="row">
-                    <div className="col-md-6">
-                        <div className="form-group">
-                            <input
-                                type="text"
-                                className="form-control"
-                                name="name"
-                                placeholder="Name of Organization"
-                                value={formData.name}
-                                onChange={handleChange}
-                                required
-                            />
-                        </div>
-                    </div>
-                    <div className="col-md-6">
-                        <div className="form-group">
-                            <input
-                                type="text"
-                                className="form-control"
-                                name="location"
-                                placeholder="Location"
-                                value={formData.location}
-                                onChange={handleChange}
-                                required
-                            />
-                        </div>
-                    </div>
-                </div>
-                <div className="form-group">
-                    <input
-                        type="text"
-                        className="form-control"
-                        name="establishedYear"
-                        placeholder="Established Year"
-                        value={formData.establishedYear}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
-                <div className="form-group">
-                    <textarea
-                        className="form-control"
-                        name="description"
-                        placeholder="Description"
-                        value={formData.description}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
-                <div className="row">
-                    <div className="col-md-12">
+      <div className="auctioneer-form-card ">
+        <h1 className="auctioneer-form-title">
+          Register organization as Auctioneer
+        </h1>
+        <form onSubmit={handleCreateAuctioneer}>
+          <div className="row">
+            <div className="col-md-6">
+              <div className="form-group">
+                <input
+                  type="text"
+                  className="form-control"
+                  name="name"
+                  placeholder="Name of Organization"
+                  value={formData.name}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+            </div>
+            <div className="col-md-6">
+              <div className="form-group">
+                <input
+                  type="text"
+                  className="form-control"
+                  name="location"
+                  placeholder="Location"
+                  value={formData.location}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+            </div>
+          </div>
+          <div className="form-group">
+            <input
+              type="text"
+              className="form-control"
+              name="establishedYear"
+              placeholder="Established Year"
+              value={formData.establishedYear}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <textarea
+              className="form-control"
+              name="description"
+              placeholder="Description"
+              value={formData.description}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="row">
+            <div className="col-md-12">
               <div className="form-group">
                 <input
                   type="text"

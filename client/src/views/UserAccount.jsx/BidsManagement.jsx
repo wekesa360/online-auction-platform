@@ -2,11 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "./BidManagement.css"; // Update the CSS file name
 import AuctionDetailsModal from "../../components/auctions/AuctionDetailsModal/AuctionDetailsModal";
-import {
-  deleteBid,
-  updateBid,
-  fetchBids,
-} from "../../store/actions"; // Update the action imports
+import { deleteBid, updateBid, fetchBids } from "../../store/actions"; // Update the action imports
 
 const BidManagement = () => {
   const dispatch = useDispatch();
@@ -42,21 +38,27 @@ const BidManagement = () => {
     dispatch(deleteBid(bidId));
   };
 
-
   const handleViewItem = (auction) => {
     const updatedAuction = {
       ...auction,
       bidStarts: `${auction.startingDate} ${auction.startingTime}`,
       bidEnds: formatDateAndTime(auction.endDate, auction.endTime),
-      currentBid: auction.bids.length > 0 ? `Ksh ${new Intl.NumberFormat('en-KE', { style: 'currency', currency: 'KES' }).format(auction.bids[0].amount)}` : 'Ksh 0'
+      currentBid:
+        auction.bids.length > 0
+          ? `Ksh ${new Intl.NumberFormat("en-KE", {
+              style: "currency",
+              currency: "KES",
+            }).format(auction.bids[0].amount)}`
+          : "Ksh 0",
     };
     setViewItem(updatedAuction);
   };
-  
 
   function formatDateAndTime(date, time) {
     const auctionDateTime = `${date}T${time}`;
-    const formattedDateTime = `${auctionDateTime.toString().split('T')[0]} at ${time}`;
+    const formattedDateTime = `${
+      auctionDateTime.toString().split("T")[0]
+    } at ${time}`;
     return formattedDateTime;
   }
 
@@ -64,7 +66,7 @@ const BidManagement = () => {
     setViewItem(null);
   };
 
-  console.log(bids)
+  console.log(bids);
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -169,8 +171,13 @@ const BidManagement = () => {
           {bids ? (
             bids.map((bid) => (
               <tr key={bid.id}>
-                <td>{new Intl.NumberFormat('en-KE', { style: 'currency', currency: 'KES' }).format(bid.amount)}</td>
-                <td>{bid.auction ? bid.auction.title : 'N/A'}</td>
+                <td>
+                  {new Intl.NumberFormat("en-KE", {
+                    style: "currency",
+                    currency: "KES",
+                  }).format(bid.amount)}
+                </td>
+                <td>{bid.auction ? bid.auction.title : "N/A"}</td>
                 <td>{new Date(bid.timestamp).toLocaleString()}</td>
                 <td>
                   {/* <button
@@ -202,10 +209,7 @@ const BidManagement = () => {
         </tbody>
       </table>
       {viewItem && (
-        <AuctionDetailsModal
-          auction={viewItem}
-          onClose={handleCloseModal}
-        />
+        <AuctionDetailsModal auction={viewItem} onClose={handleCloseModal} />
       )}
     </div>
   );

@@ -1,40 +1,44 @@
 .sidebar {
-    position: relative;
-    top: 56px; /* Adjust this value based on your navbar height */
-    bottom: 56px; /* Adjust this value based on your footer height */
-    left: 5%; /* Add 10% left margin */
-    z-index: 11;
-    height: 70%;
-    padding: 1rem 0; 
-    padding-bottom: 23%;/* Add some vertical padding */
-    box-shadow: inset -1px 0 0 rgba(0, 0, 0, 0.1);
-    background-color: #afb0b1;
-    width: 250px; /* Set a fixed width for the sidebar */
-  }
-  
-  .sidebar-sticky {
-    position: relative;
-    top: 0;
-    height: 100%;
-    margin: 45% 0;
-    overflow-x: hidden;
-    overflow-y: auto;
-  }
+  position: relative;
+  top: 56px; /* Adjust this value based on your navbar height */
+  bottom: 56px; /* Adjust this value based on your footer height */
+  left: 5%; /* Add 10% left margin */
+  z-index: 11;
+  height: 70%;
+  padding: 1rem 0;
+  padding-bottom: 23%; /* Add some vertical padding */
+  box-shadow: inset -1px 0 0 rgba(0, 0, 0, 0.1);
+  background-color: #afb0b1;
+  width: 250px; /* Set a fixed width for the sidebar */
+}
 
+.sidebar-sticky {
+  position: relative;
+  top: 0;
+  height: 100%;
+  margin: 45% 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
 
-  .sidebar .nav-link {
-    width: 100%; /* Full width for the nav links */
-    font-weight: 500;
-    color: rgba(0, 0, 0, 0.5); /* Light text color for links */
-    padding: 0.75rem 1rem;
-  }
-  
-  .sidebar .nav-link:hover,
-  .sidebar .nav-link.active {
-    color: #fff; /* White text color for active/hover links */
-    background-color: rgba(255, 255, 255, 0.1); /* Light background for active/hover links */
-  }
-  
-  .sidebar .nav-link i {
-    margin-right: 0.5rem; /* Add some spacing between icon and text */
-  }
+.sidebar .nav-link {
+  width: 100%; /* Full width for the nav links */
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.5); /* Light text color for links */
+  padding: 0.75rem 1rem;
+}
+
+.sidebar .nav-link:hover,
+.sidebar .nav-link.active {
+  color: #fff; /* White text color for active/hover links */
+  background-color: rgba(
+    255,
+    255,
+    255,
+    0.1
+  ); /* Light background for active/hover links */
+}
+
+.sidebar .nav-link i {
+  margin-right: 0.5rem; /* Add some spacing between icon and text */
+}

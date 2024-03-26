@@ -35,26 +35,26 @@ const AuctionSchema = new Schema({
     },
     images: { data: Buffer, contentType: String },
 
-    imageUrl : {
+    imageUrl: {
         type: String,
     },
-    
+
     createdBy: {
         type: Schema.Types.ObjectId,
         ref: 'User',
     },
     bids: [
         {
-        type: Schema.Types.ObjectId,
-        ref: 'Bid',
+            type: Schema.Types.ObjectId,
+            ref: 'Bid',
         },
     ],
-    auctioneer: {  
+    auctioneer: {
         type: Schema.Types.ObjectId,
         ref: 'Auctioneer',
         required: [true, 'Please provide an auctioneer for the auction'],
     },
-    });
+});
 
 AuctionSchema.set(
     'toJSON',

@@ -14,4 +14,4 @@ const authorize = (roles = []) => {
   };
 };
 
-export { authorize } ;
+export { authorize };

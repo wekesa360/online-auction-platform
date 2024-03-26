@@ -213,16 +213,16 @@ export const deleteAuctioneer = (auctioneerId) => async (dispatch) => {
 };
 
 // fetch auctioneer
-  export const fetchAuctioneer = (auctioneerId) => async (dispatch) => {
-    dispatch({ type: actionTypes.FETCH_AUCTIONEER_REQUEST });
-    try {
-      const auctioneers = await auctioneerService.getAllAuctioneers(auctioneerId);
-      dispatch({ type: actionTypes.FETCH_AUCTIONEER_SUCCESS, payload: auctioneers });
-    } catch (error) {
-      dispatch({ type: actionTypes.FETCH_AUCTIONEER_FAILURE, payload: error.message });
-    }
+export const fetchAuctioneer = (auctioneerId) => async (dispatch) => {
+  dispatch({ type: actionTypes.FETCH_AUCTIONEER_REQUEST });
+  try {
+    const auctioneers = await auctioneerService.getAllAuctioneers(auctioneerId);
+    dispatch({ type: actionTypes.FETCH_AUCTIONEER_SUCCESS, payload: auctioneers });
+  } catch (error) {
+    dispatch({ type: actionTypes.FETCH_AUCTIONEER_FAILURE, payload: error.message });
   }
+}
 
-  export const deleteAuctioneerSuccess = (auctioneerId) => async (dispatch) => {
-    dispatch({ type: actionTypes.DELETE_AUCTIONEER_SUCCESS, payload: auctioneerId});
-  }
+export const deleteAuctioneerSuccess = (auctioneerId) => async (dispatch) => {
+  dispatch({ type: actionTypes.DELETE_AUCTIONEER_SUCCESS, payload: auctioneerId });
+}

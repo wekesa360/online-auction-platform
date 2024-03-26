@@ -1,16 +1,16 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { createAuctioneer } from '../../store/actions';
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { createAuctioneer } from "../../store/actions";
 
 const AuctioneerManagement = () => {
   const dispatch = useDispatch();
 
-  const [name, setName] = useState('');
-  const [description, setDescription] = useState('');
-  const [location, setLocation] = useState('');
-  const [contact, setContact] = useState('');
-  const [establishedYear, setEstablishedYear] = useState('');
-  const [logoUrl, setLogoUrl] = useState('');
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [location, setLocation] = useState("");
+  const [contact, setContact] = useState("");
+  const [establishedYear, setEstablishedYear] = useState("");
+  const [logoUrl, setLogoUrl] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -28,17 +28,17 @@ const AuctioneerManagement = () => {
       await dispatch(createAuctioneer(newAuctioneer));
       resetForm();
     } catch (error) {
-      console.error('Error creating auctioneer:', error);
+      console.error("Error creating auctioneer:", error);
     }
   };
 
   const resetForm = () => {
-    setName('');
-    setDescription('');
-    setLocation('');
-    setContact('');
-    setEstablishedYear('');
-    setLogoUrl('');
+    setName("");
+    setDescription("");
+    setLocation("");
+    setContact("");
+    setEstablishedYear("");
+    setLogoUrl("");
   };
 
   return (
@@ -46,7 +46,9 @@ const AuctioneerManagement = () => {
       <h2>Auctioneer Management</h2>
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
-          <label htmlFor="name" className="form-label">Name</label>
+          <label htmlFor="name" className="form-label">
+            Name
+          </label>
           <input
             type="text"
             className="form-control"
@@ -57,7 +59,9 @@ const AuctioneerManagement = () => {
           />
         </div>
         <div className="mb-3">
-          <label htmlFor="description" className="form-label">Description</label>
+          <label htmlFor="description" className="form-label">
+            Description
+          </label>
           <textarea
             className="form-control"
             id="description"
@@ -67,7 +71,9 @@ const AuctioneerManagement = () => {
           />
         </div>
         <div className="mb-3">
-          <label htmlFor="location" className="form-label">Location</label>
+          <label htmlFor="location" className="form-label">
+            Location
+          </label>
           <input
             type="text"
             className="form-control"
@@ -78,7 +84,9 @@ const AuctioneerManagement = () => {
           />
         </div>
         <div className="mb-3">
-          <label htmlFor="contact" className="form-label">Contact</label>
+          <label htmlFor="contact" className="form-label">
+            Contact
+          </label>
           <input
             type="text"
             className="form-control"
@@ -89,7 +97,9 @@ const AuctioneerManagement = () => {
           />
         </div>
         <div className="mb-3">
-          <label htmlFor="establishedYear" className="form-label">Established Year</label>
+          <label htmlFor="establishedYear" className="form-label">
+            Established Year
+          </label>
           <input
             type="number"
             className="form-control"
@@ -100,7 +110,9 @@ const AuctioneerManagement = () => {
           />
         </div>
         <div className="mb-3">
-          <label htmlFor="logoUrl" className="form-label">Logo URL</label>
+          <label htmlFor="logoUrl" className="form-label">
+            Logo URL
+          </label>
           <input
             type="text"
             className="form-control"
@@ -110,7 +122,9 @@ const AuctioneerManagement = () => {
             required
           />
         </div>
-        <button type="submit" className="btn btn-primary">Add Auctioneer</button>
+        <button type="submit" className="btn btn-primary">
+          Add Auctioneer
+        </button>
       </form>
     </div>
   );

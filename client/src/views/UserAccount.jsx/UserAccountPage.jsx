@@ -73,7 +73,8 @@ const UserAccountPage = () => {
                         className="nav-link btn btn-link text-start"
                         onClick={() => handleSectionChange("Your Bids")}
                       >
-                        <i className="bi bi-currency-dollar"></i> Manage Your Bids
+                        <i className="bi bi-currency-dollar"></i> Manage Your
+                        Bids
                       </button>
                     </li>
                     <li className="nav-item">
