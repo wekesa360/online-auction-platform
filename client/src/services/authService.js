@@ -5,7 +5,6 @@ const authService = {
     try {
       const { data: loginData } = await api.post("/auth/login", { username, password });
       const authToken = loginData.token;
-      console.log("authToken", authToken) ;
       localStorage.setItem("authToken", authToken);
       const { data: authData } = await api.get('/auth/me', { headers: { Authorization: `Bearer ${authToken}` } });
       return authData;
@@ -46,11 +45,12 @@ const authService = {
 
 
   logout: async () => {
-    try {
-      await api.post("/auth/logout");
-    } catch (error) {
-      throw error;
-    }
+    localStorage.removeItem("authToken");
+    // try {
+    //   await api.post("/auth/logout");
+    // } catch (error) {
+    //   throw error;
+    // }
   },
 
 };

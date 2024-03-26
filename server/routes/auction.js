@@ -11,7 +11,6 @@ const upload = multer({ dest: 'uploads/' });
 
 router.get(
   "/auction",
-  authorize(["user", "admin"]),
   auctionController.getAll
 );
 router.get(
