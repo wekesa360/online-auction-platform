@@ -52,6 +52,7 @@ const UserAccountPage = () => {
     try {
       // Add logic to delete the user account
       console.log("User account deleted successfully!");
+      fetchBids();
     } catch (error) {
       console.error("Error deleting account:", error);
     }

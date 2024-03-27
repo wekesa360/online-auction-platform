@@ -12,28 +12,28 @@ const AuctionListing = () => {
   const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
-    fetchAuctions();
+    const fetchData = async () => {
+      try {
+        const data = await auctionService.getAllAuctions();
+        const updatedAuctions = data.map((auction) => ({
+          ...auction,
+          bidStarts: `${auction.startingDate} ${auction.startingTime}`,
+          bidEnds: formatDateAndTime(auction.endDate, auction.endTime),
+          currentBid: auction.bids.length > 0 ? `Ksh ${auction.bids[0].amount.toLocaleString()}` : "Ksh 0",
+        }));
+        setAuctions(updatedAuctions);
+        setLoading(false);
+      } catch (error) {
+        setError(error);
+        setLoading(false);
+      }
+    };
+  
+    fetchData();
+    const interval = setInterval(fetchData, 30000);
+  
+    return () => clearInterval(interval);
   }, []);
-
-  const fetchAuctions = async () => {
-    try {
-      const data = await auctionService.getAllAuctions();
-      const updatedAuctions = data.map((auction) => ({
-        ...auction,
-        bidStarts: `${auction.startingDate} ${auction.startingTime}`,
-        bidEnds: formatDateAndTime(auction.endDate, auction.endTime),
-        currentBid:
-          auction.bids.length > 0
-            ? `Ksh ${auction.bids[0].amount.toLocaleString()}`
-            : "Ksh 0",
-      }));
-      setAuctions(updatedAuctions);
-      setLoading(false);
-    } catch (error) {
-      setError(error);
-      setLoading(false);
-    }
-  };
 
   function formatDateAndTime(date, time) {
     const auctionDateTime = `${date}T${time}`;

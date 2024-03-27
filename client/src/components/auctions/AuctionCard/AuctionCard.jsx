@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import "./AuctionCard.css";
 import { placeBid } from "../../../store/actions";
 import Toast from "../../../components/common/Toast/Toast";
@@ -17,6 +17,8 @@ const AuctionCard = ({
 
   const [showBidForm, setShowBidForm] = useState(false);
   const [bidAmount, setBidAmount] = useState("");
+  const error = useSelector((state) => state.bid.error);
+  const auctionErrors = useSelector((state) => state.auction.error);
 
   const handleBidFormToggle = () => {
     setShowBidForm(!showBidForm);
@@ -24,6 +26,20 @@ const AuctionCard = ({
       Toast.info("Enter your bid amount and submit.");
     }
   };
+
+  useEffect(() => {
+    if (error) {
+      Toast.error(`Failed: ${error.message}`);
+    }
+    if (auctionErrors) {
+      Toast.error(`Failed: ${auctionErrors.message}`);
+    }
+    return () => {
+      setBidAmount("");
+      setShowBidForm(false);
+    };
+  }
+  , [error, auctionErrors]);
 
   const handleBidAmountChange = (e) => {
     const bidAmount = e.target.value;
