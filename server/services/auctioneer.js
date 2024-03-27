@@ -21,7 +21,7 @@ async function getAllAuctioneers() {
 
 
 async function getAuctioneerByUserId(userId) {
-  return await AuctioneerModel.findOne({ admin: userId });
+  return await AuctioneerModel.find({ admin: userId });
 }
 
 async function getAuctioneerById(id) {

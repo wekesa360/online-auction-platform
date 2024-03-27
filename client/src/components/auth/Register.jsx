@@ -1,49 +1,69 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { register } from "../../store/actions"; // Import the register action
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { register } from "../../store/actions";
 import "./Register.css";
 import { useNavigate, Link } from "react-router-dom";
+import Toast from "../common/Toast/Toast";
 
 const Register = () => {
   const [formData, setFormData] = useState({
     username: "",
     email: "",
     password: "",
+    confirmPassword: "",
     role: "",
   });
+  const [passwordMatch, setPasswordMatch] = useState(true);
+  const [passwordValid, setPasswordValid] = useState(true);
 
-  const [error, setError] = useState(null);
-  const dispatch = useDispatch(); // Initialize dispatch
+  const { isRegisteredNow, error } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+    if (e.target.name === "password") {
+      validatePassword(e.target.value);
+    } else if (e.target.name === "confirmPassword") {
+      setPasswordMatch(e.target.value === formData.password);
+    }
+  };
+
+  const validatePassword = (password) => {
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    setPasswordValid(passwordRegex.test(password));
+    setPasswordMatch(formData.password === formData.confirmPassword);
   };
 
   const handleRegister = async (e) => {
     e.preventDefault();
-    try {
-      await dispatch(register(formData));
+    if (passwordMatch && passwordValid) {
+      try {
+        // remove confirmPassword from formData using setFormDara
+        const { confirmPassword, ...rest } = formData;
+        await dispatch(register(rest));
+      } catch (error) {
+        // Handle error
+      }
+    } else {
+      Toast.error(
+        "Passwords do not match or do not meet the requirements. Please try again."
+      );
+    }
+  };
+
+  useEffect(() => {
+    if (isRegisteredNow) {
+      Toast.success("Registration successful");
       if (formData.role === "admin") {
-        navigate("/register/auctioneer");
+        navigate("/login");
       } else {
         navigate("/login");
       }
-    } catch (error) {
-      if (error.message === "internal_error") {
-        setError("Internal server error. Please try again later.");
-        console.error("Internal server error", error.message);
-        return;
-      }
-      if (error.message === "INCORRECT_USERNAME") {
-        setError("Username or email is already taken");
-        console.error("Username or email is already taken", error.message);
-        return;
-      }
-      setError("Failed to register. Please try again.");
-      console.error("Failed to register", error.message);
+    } else if (error && error.message) {
+      Toast.error(error.message);
     }
-  };
+  }, [isRegisteredNow, error, formData.role, navigate]);
 
   return (
     <div className="register-container">
@@ -90,6 +110,27 @@ const Register = () => {
             />
           </div>
           <div className="form-group">
+            <input
+              type="password"
+              className="form-control"
+              name="confirmPassword"
+              placeholder="Confirm Password"
+              value={formData.confirmPassword}
+              onChange={handleChange}
+              required
+            />
+            {!passwordMatch && (
+              <p className="error-message">Passwords do not match</p>
+            )}
+            {!passwordValid && (
+              <p className="error-message">
+                Password must be at least 8 characters long and contain at least
+                one uppercase letter, one lowercase letter, one number, and one
+                special character.
+              </p>
+            )}
+          </div>
+          <div className="form-group">
             <select
               className="form-control"
               name="role"
@@ -102,8 +143,12 @@ const Register = () => {
               <option value="admin">Admin</option>
             </select>
           </div>
-          {error && <p className="error-message">{error}</p>}
-          <button type="submit" className="btn btn-primary register-btn">
+          {error && <p className="error-message">{error.message}</p>}
+          <button
+            type="submit"
+            className="btn btn-primary register-btn"
+            disabled={!passwordMatch || !passwordValid}
+          >
             Register
           </button>
         </form>

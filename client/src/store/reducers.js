@@ -42,12 +42,18 @@ const authReducer = (state = authInitialState, action) => {
         error: null,
         isAdminFirstLogin: isAdmin && state.isRegisteredNow, // Check if admin is logging in for the first time
       };
+      case actionTypes.SET_IS_REGISTERED_NOW:
+        return {
+          ...state,
+          isRegisteredNow: action.payload,
+        };
     case actionTypes.REGISTER_FAILURE:
     case actionTypes.LOGIN_FAILURE:
       return {
         ...state,
         loading: false,
-        error: action.payload,
+        isAuthenticated: false,
+        error: action.payload
       };
     default:
       return state;
@@ -141,6 +147,8 @@ const profileReducer = (state = profileInitialState, action) => {
 // Auctioneer reducer
 const auctioneerInitialState = {
   auctioneers: [],
+  isAuctioneerCreated: false,
+  isAuctioneerEdited: false,
   loading: true,
   error: null,
 };
@@ -176,11 +184,19 @@ const auctioneerReducer = (state = auctioneerInitialState, action) => {
         error: null,
       };
     case actionTypes.CREATE_AUCTIONEER_SUCCESS:
+       // Handle success action if needed
+       return {
+        ...state,
+        loading: false,
+        isAuctioneerCreated: true,
+        error: null,
+      };
     case actionTypes.EDIT_AUCTIONEER_SUCCESS:
       // Handle success action if needed
       return {
         ...state,
         loading: false,
+        isAuctioneerEdited: true,
         error: null,
       };
     case actionTypes.CREATE_AUCTIONEER_FAILURE:

@@ -14,6 +14,11 @@ const BidSchema = new Schema({
         ref: 'User',
     },
     timestamp: { type: Date, default: Date.now },
+
+    status: {
+        type: Boolean,
+        default: false,
+    },
 });
 
 BidSchema.set(

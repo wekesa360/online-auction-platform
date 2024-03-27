@@ -1,17 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { login } from "../../store/actions";
+import { login,  } from "../../store/actions";
 import "./Login.css";
 import { Link } from "react-router-dom";
+import Toast from "../common/Toast/Toast";
 
 const Login = () => {
   const [formData, setFormData] = useState({ username: "", password: "" });
-  const [error, setError] = useState(null);
+  const error = useSelector((state) => state.auth.error);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { isAuthenticated, isAdminFirstLogin } = useSelector(
-    (state) => state.auth
+  const user = useSelector((state) => state.auth.user);
+  const isRegisteredNow = useSelector((state) => state.auth.isRegisteredNow);
+  const isLoading = useSelector((state) => state.auth.isLoading);
+  const isAuthenticated= useSelector(
+    (state) => state.auth.isAuthenticated
   );
 
   const handleChange = (e) => {
@@ -20,27 +24,31 @@ const Login = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    try {
-      await dispatch(login(formData.username, formData.password));
-      if (isAuthenticated) {
-        if (isAdminFirstLogin) {
+      try {
+        await dispatch(login(formData.username, formData.password));
+      } catch (error) {
+        if (error)
+          Toast.error(error.message);
+      }
+    };
+
+    useEffect(() => {
+      if (error && error.message) {
+        Toast.error(error.message);
+      } else if (isAuthenticated) {
+        Toast.success("Login successful");
+        console.log(user.role, isRegisteredNow)
+        if (user.role === "admin" && isRegisteredNow) {
           navigate("/register/auctioneer");
+        } else {
+          navigate("/");
         }
-      } else {
-        navigate("/");
+        
+      } else if (!isLoading && !isAuthenticated && error) {
+        Toast.error(error);
       }
-    } catch (error) {
-      if (error.message === "INCORRECT_PASSWORD") {
-        setError("Incorrect password or email. Please try again");
-      } else if (error.message === "INTERNAL_ERROR") {
-        setError("Something went wrong. Try again later");
-      } else if (error.message === "NETWORK_ERROR") {
-        setError("Something wrong with your connection");
-      } else {
-        setError(error.message);
-      }
-    }
-  };
+    }, [error, isAuthenticated, isLoading, navigate, user, isRegisteredNow]);
+
 
   return (
     <div className="container ">
@@ -75,7 +83,7 @@ const Login = () => {
               required
             />
           </div>
-          {error && <p className="error-message">{error}</p>}
+          {error && <p className="error-message">{error.message}</p>}
           <button type="submit" className="btn btn-primary login-btn">
             Login
           </button>

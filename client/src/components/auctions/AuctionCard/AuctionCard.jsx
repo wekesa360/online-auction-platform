@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import "./AuctionCard.css";
 import { placeBid } from "../../../store/actions";
+import Toast from "../../../components/common/Toast/Toast";
 
 const AuctionCard = ({
   id,
@@ -19,18 +20,30 @@ const AuctionCard = ({
 
   const handleBidFormToggle = () => {
     setShowBidForm(!showBidForm);
+    if (!showBidForm) {
+      Toast.info("Enter your bid amount and submit.");
+    }
   };
 
   const handleBidAmountChange = (e) => {
-    setBidAmount(e.target.value);
+    const bidAmount = e.target.value;
+    if (bidAmount <= 0) {
+      Toast.error("Bid amount must be greater than zero.");
+    } else {
+      setBidAmount(bidAmount);
+    }
   };
 
   const handleBidSubmit = (e) => {
     e.preventDefault();
-    dispatch(placeBid(id, bidAmount));
-
-    setBidAmount("");
-    setShowBidForm(false);
+    try {
+      dispatch(placeBid(id, bidAmount));
+      setBidAmount("");
+      setShowBidForm(false);
+      Toast.success("Bid placed successfully!");
+    } catch (error) {
+      Toast.error("Failed to place bid. Please try again.");
+    }
   };
 
   return (

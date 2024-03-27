@@ -9,17 +9,7 @@ const authService = {
       const { data: authData } = await api.get('/auth/me', { headers: { Authorization: `Bearer ${authToken}` } });
       return authData;
     } catch (error) {
-      if (error.response && error.response.status === 500) {
-        throw new Error("internal_error")
-      }
-      if (error.response && error.response.status === 401) {
-        if (error.response.data && error.response.data.message) {
-          throw new Error(error.response.data.message);
-        } else {
-          throw error
-        }
-      }
-      throw error;
+      throw new Error(error.response.data.message);
     }
   },
 
@@ -29,17 +19,7 @@ const authService = {
       const { data } = await api.post("/auth/register", registrationData);
       return data;
     } catch (error) {
-      if (error.response && error.response.status === 500) {
-        throw new Error("internal_error")
-      }
-      if (error.response && error.response.status === 400) {
-        if (error.response.data && error.response.data.message) {
-          throw new Error(error.response.data.message);
-        } else {
-          throw error
-        }
-      }
-      throw error;
+      throw new Error(error.response.data.message);
     }
   },
 

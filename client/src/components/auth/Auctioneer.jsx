@@ -1,8 +1,9 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { createAuctioneer } from "../../store/actions"; // Import the registerAuctioneer action
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { createAuctioneer,setIsRegisteredNow } from "../../store/actions";
 import "./Auctioneer.css";
 import { useNavigate } from "react-router-dom";
+import Toast from "../common/Toast/Toast";
 
 const AuctioneerForm = () => {
   const [formData, setFormData] = useState({
@@ -14,24 +15,47 @@ const AuctioneerForm = () => {
     logoUrl: "",
   });
 
-  const [error, setError] = useState(null);
-  const dispatch = useDispatch(); // Initialize dispatch
+  const [contactValid, setContactValid] = useState(false);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { isAuctioneerCreated, error } = useSelector((state) => state.auctioneer);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+    if (e.target.name === "contact") {
+      validateContact(e.target.value);
+    }
+  };
+
+  const validateContact = (contact) => {
+    const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+    const phoneRegex = /^\+?\d{1,3}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}$/;
+    setContactValid(emailRegex.test(contact) || phoneRegex.test(contact));
   };
 
   const handleCreateAuctioneer = async (e) => {
     e.preventDefault();
-    try {
-      await dispatch(createAuctioneer(formData)); // Dispatch the registerAuctioneer action
-      navigate("/");
-    } catch (error) {
-      setError("Failed to register auctioneer. Please try again.");
-      console.error("Failed to register auctioneer", error.message);
+    if (contactValid) {
+      try {
+        await dispatch(createAuctioneer(formData));
+      } catch (error) {
+        Toast.error("Failed to register auctioneer. Please try again.");
+        console.error("Failed to register auctioneer", error.message);
+      }
+    } else {
+      Toast.error("Please enter a valid email or phone number with country code.");
     }
   };
+
+  useEffect(() => {
+    if (isAuctioneerCreated) {
+      dispatch(setIsRegisteredNow(false));
+      Toast.success("Auctioneer registered successfully!");
+      navigate("/");
+    } else if (error && error.message) {
+      Toast.error(error.message);
+    }
+  }, [isAuctioneerCreated, error, navigate, dispatch]);
 
   return (
     <div className="auctioneer-form-container">
@@ -118,7 +142,7 @@ const AuctioneerForm = () => {
             </div>
           </div>
 
-          {error && <p className="error-message">{error}</p>}
+          {error && <p className="error-message">{error.message}</p>}
           <button type="submit" className="btn btn-primary auctioneer-form-btn">
             Register
           </button>

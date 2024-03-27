@@ -5,13 +5,12 @@ const auctionService = {
 
     try {
       const authToken = localStorage.getItem("authToken");
-      console.log("In auctionService", authToken);
       const { data } = await api.get("/an/auction", {
         headers: { Authorization: `Bearer ${authToken}` }
       });
       return data;
     } catch (error) {
-      throw error;
+      throw new Error(error.response.data.message);
     }
   },
 
@@ -23,7 +22,7 @@ const auctionService = {
       });
       return data;
     } catch (error) {
-      throw error;
+      throw new Error(error.response.data.message);
     }
   },
 
@@ -38,7 +37,7 @@ const auctionService = {
       });
       return data;
     } catch (error) {
-      throw error;
+      throw new Error(error.response.data.message);
     }
   },
 
@@ -50,7 +49,7 @@ const auctionService = {
       });
       return data;
     } catch (error) {
-      throw error;
+      throw new Error(error.response.data.message);
     }
   },
 
@@ -61,7 +60,7 @@ const auctionService = {
         headers: { Authorization: `Bearer ${authToken}` }
       });
     } catch (error) {
-      throw error;
+      throw new Error(error.response.data.message);
     }
   }
 };

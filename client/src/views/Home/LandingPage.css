@@ -207,6 +207,12 @@
     background-image: url('../../assets/images/sofa.svg');
   }
   
-  .hexagon:nth-child(3) {
+  .hexagon-last {
+    width: 400px;
+    height: 430px;
+    background-size: cover;
+    background-position: center;
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    margin: 0 1rem;
     background-image: url('../../assets/images/house.svg');
   }

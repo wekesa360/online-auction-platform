@@ -2,21 +2,21 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { logout } from "../../../store/actions";
+import Toast from "../../common/Toast/Toast";
 
 import "./Navbar.css";
 
 const Navbar = () => {
   const isLoggedIn = useSelector((state) => state.auth.isAuthenticated);
   const isAdmin = useSelector((state) => state.auth.user?.role === "admin");
+
   const dispatch = useDispatch();
 
   const handleLogout = () => {
-    //localStorage.removeItem("authToken");
     dispatch(logout());
+    Toast.success("Logout successful");
   };
 
-  // Check if authToken exists in localStorage
-  const authToken = localStorage.getItem("authToken");
 
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light justify-content-center">
@@ -55,7 +55,7 @@ const Navbar = () => {
                 Auctioneers
               </Link> */}
             </li>
-            {isLoggedIn || authToken !== null ? (
+            {isLoggedIn ? (
               <>
                 {isAdmin ? (
                   <li className="nav-item">
@@ -70,8 +70,8 @@ const Navbar = () => {
                     </Link>
                   </li>
                 )}
-                <button className="btn btn-primary logout-btn">
-                  <span onClick={handleLogout}>Logout</span>
+                <button onClick={handleLogout} className="btn btn-primary logout-btn">
+                  <span>Logout</span>
                 </button>
               </>
             ) : (

@@ -12,7 +12,12 @@ export const createAuctioneer = async (req, res, next) => {
     await auctioneerService.createAuctioneer(req.body);
     res.status(201).json({ message: 'Auctioneer created successfully' });
   } catch (error) {
-    next(error);
+    // error message === E11000 duplicate key error collection: test.auctioneers index: name_1 dup key: { name: "The KC" }
+    if (error.message.includes('E11000')) {
+      next(new CustomError('Auctioneer already exists', 400));
+    } else {
+      next(error);
+    }
   }
 };
 
@@ -32,7 +37,8 @@ export const getAuctioneerById = async (req, res, next) => {
 // Controller function to get all auctioneers
 export const getAllAuctioneers = async (req, res, next) => {
   try {
-    const auctioneers = await auctioneerService.getAllAuctioneers();
+    const admin = req.user._id;
+    const auctioneers = await auctioneerService.getAuctioneerByUserId(admin);
     res.json(auctioneers);
   } catch (error) {
     next(error);

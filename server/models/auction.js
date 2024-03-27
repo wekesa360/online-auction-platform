@@ -54,6 +54,10 @@ const AuctionSchema = new Schema({
         ref: 'Auctioneer',
         required: [true, 'Please provide an auctioneer for the auction'],
     },
+    status: {
+        type: Boolean,
+        default: false,
+    },
 });
 
 AuctionSchema.set(

@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import Toast from "../../components/common/Toast/Toast";
+import "react-toastify/dist/ReactToastify.css";
 import "./AuctioneerManagement.css";
 import {
   deleteAuctioneer,
@@ -16,7 +18,10 @@ const AuctioneerManagement = () => {
 
   useEffect(() => {
     dispatch(fetchAuctioneers());
-  }, [dispatch]);
+    if (error) {
+     Toast.error(`Failed: ${error.message}`);
+    }
+  }, [dispatch, error]);
 
   const [editMode, setEditMode] = useState(false);
   const [selectedAuctioneer, setSelectedAuctioneer] = useState(null);
@@ -38,16 +43,18 @@ const AuctioneerManagement = () => {
     setLogoUrl(auctioneer.logoUrl);
     setShowAddForm(true);
     setEditMode(true);
+   Toast.info("Editing auctioneer details.");
   };
 
-  const handleDelete = (auctioneerId) => {
-    dispatch(deleteAuctioneer(auctioneerId));
+  const handleDelete = async (auctioneerId) => {
+    try {
+      await dispatch(deleteAuctioneer(auctioneerId));
+      await dispatch(fetchAuctioneers());
+     Toast.success("Auctioneer deleted successfully.");
+    } catch (error) {
+     Toast.error("Failed to delete auctioneer.");
+    }
   };
-
-  // const handleEdit = (auctioneerId, newData) => {
-  //   dispatch(updateAuctioneer(auctioneerId, newData));
-  //   // You may need to update the auctioneers state after editing
-  // };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -60,17 +67,21 @@ const AuctioneerManagement = () => {
       establishedYear,
       logoUrl,
     };
-
-    if (editMode) {
-      await dispatch(updateAuctioneer(selectedAuctioneer.id, newAuctioneer));
-      setEditMode(false);
-    } else {
-      await dispatch(createAuctioneer(newAuctioneer));
+    try {
+      if (editMode) {
+        await dispatch(updateAuctioneer(selectedAuctioneer.id, newAuctioneer));
+       Toast.success("Auctioneer updated successfully.");
+        setEditMode(false);
+      } else {
+        await dispatch(createAuctioneer(newAuctioneer));
+        Toast.success("Auctioneer updated successfully.");
+      }
+      setShowAddForm(false);
+      await dispatch(fetchAuctioneers());
+      resetForm();
+    } catch (error) {
+     Toast.error(`Failed to update/add auctioneer: ${error.message}`);
     }
-
-    // You may need to update the auctioneers state after adding
-    setShowAddForm(false);
-    resetForm();
   };
 
   const resetForm = () => {

@@ -1,5 +1,4 @@
 import api from "../utils/api";
-
 const auctioneerService = {
   createAuctioneer: async (auctioneerData) => {
     try {
@@ -9,7 +8,7 @@ const auctioneerService = {
       });
       return data;
     } catch (error) {
-      throw error;
+      throw new Error (error.response.data.message);
     }
   },
 

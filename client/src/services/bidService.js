@@ -9,7 +9,7 @@ const bidService = {
       });
       return data;
     } catch (error) {
-      throw error;
+      throw new Error(error.response.data.message);
     }
   },
 
@@ -21,7 +21,7 @@ const bidService = {
       });
       return data;
     } catch (error) {
-      throw error;
+      throw new Error(error.response.data.message);
     }
   },
 
@@ -38,7 +38,7 @@ const bidService = {
       });
       return data;
     } catch (error) {
-      throw error;
+      throw new Error(error.response.data.message);
     }
   },
 
@@ -51,7 +51,7 @@ const bidService = {
       return response.data;
     } catch (error) {
       console.error('Error fetching latest bid:', error);
-      throw error;
+      throw new Error(error.response.data.message);
     }
   },
   
@@ -64,7 +64,7 @@ const bidService = {
       });
       return data;
     } catch (error) {
-      throw error;
+      throw new Error(error.response.data.message);
     }
   },
 
@@ -75,7 +75,7 @@ const bidService = {
         headers: { Authorization: `Bearer ${authToken}` }
       });
     } catch (error) {
-      throw error;
+      throw new Error(error.response.data.message);
     }
   }
 };

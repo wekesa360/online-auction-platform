@@ -28,7 +28,7 @@ const LandingPage = () => {
                   <div className="hexagon"></div>
                 </div> 
               </div>
-              <div className="hexagon"></div>
+              <div className="hexagon-last"></div>
             </div>
           </div>
         </div>
