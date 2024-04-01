@@ -1,19 +1,19 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
 const AuctionDetails = ({ auction }) => {
   const [bids, setBids] = useState([]);
 
   useEffect(() => {
     fetchBids();
-  }, [auction]);
+  }, []);
 
   const fetchBids = async () => {
     try {
       const response = await axios.get(`/bid?auctionId=${auction.id}`);
       setBids(response.data);
     } catch (error) {
-      console.error('Error fetching bids:', error);
+      console.error("Error fetching bids:", error);
     }
   };
 

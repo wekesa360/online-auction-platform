@@ -1,7 +1,4 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import AuctionList from "./AuctionList";
-import AddAuctionForm from "./AddAuctionForm";
+import React, { useState } from "react";
 import AuctionManagement from "./AuctionManagement";
 import AuctionDetails from "./AuctionDetails";
 import ProfileManagement from "../../components/profile/Profile";
@@ -11,7 +8,6 @@ import "./AdminPage.css";
 const AdminPage = () => {
   const [activeSection, setActiveSection] = useState("auctionList");
 
-
   const handleSectionChange = (section) => {
     setActiveSection(section);
   };
@@ -19,11 +15,9 @@ const AdminPage = () => {
   const renderSection = () => {
     switch (activeSection) {
       case "Profile":
-        return (
-          <ProfileManagement/>
-        );
+        return <ProfileManagement />;
       case "addAuction":
-        return <AuctionManagement/>;
+        return <AuctionManagement />;
       case "auctionDetails":
         return <AuctionDetails />;
       case "auctioneerManagement":
@@ -37,7 +31,7 @@ const AdminPage = () => {
     <div>
       <header></header>
 
-      <div className="admin-page"> 
+      <div className="admin-page">
         <div className="">
           <div className="row">
             <div className="col-lg-4 d-flex justify-content-end">

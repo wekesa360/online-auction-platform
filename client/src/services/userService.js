@@ -3,7 +3,6 @@ import api from "../utils/api";
 const profileService = {
   getProfile: async () => {
     try {
-      console.log("We are here trying to debug the issue with the code below:: \n in UserService")
       const authToken = localStorage.getItem("authToken");
       const { data } = await api.get("user/profile", {
         headers: { Authorization: `Bearer ${authToken}` }

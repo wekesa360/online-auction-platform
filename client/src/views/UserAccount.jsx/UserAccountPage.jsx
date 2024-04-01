@@ -15,7 +15,7 @@ const UserAccountPage = () => {
       case "Your Bids":
         return <BidsManagement />; // Render BidsManagement component
       case "Profile":
-        return <ProfileManagement/>; // Render Profile component
+        return <ProfileManagement />; // Render Profile component
       // case "Manage Account":
       //   return <ManageAccount onDeleteAccount={deleteAccount} />; // Render ManageAccount component
       default:
@@ -34,7 +34,7 @@ const UserAccountPage = () => {
               <div className="sidebar">
                 <div className="sidebar-sticky">
                   <ul className="nav flex-column">
-                  <li className="nav-item">
+                    <li className="nav-item">
                       <button
                         className="nav-link btn btn-link text-start"
                         onClick={() => handleSectionChange("Profile")}
@@ -51,7 +51,7 @@ const UserAccountPage = () => {
                         Bids
                       </button>
                     </li>
-                  
+
                     {/* <li className="nav-item">
                       <button
                         className="nav-link btn btn-link text-start"

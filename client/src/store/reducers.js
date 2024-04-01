@@ -1,5 +1,3 @@
-// reducers.js
-
 import { combineReducers } from 'redux';
 import * as actionTypes from './actionTypes';
 
@@ -40,13 +38,13 @@ const authReducer = (state = authInitialState, action) => {
         user: action.payload.user,
         loading: false,
         error: null,
-        isAdminFirstLogin: isAdmin && state.isRegisteredNow, // Check if admin is logging in for the first time
+        isAdminFirstLogin: isAdmin && state.isRegisteredNow, 
       };
-      case actionTypes.SET_IS_REGISTERED_NOW:
-        return {
-          ...state,
-          isRegisteredNow: action.payload,
-        };
+    case actionTypes.SET_IS_REGISTERED_NOW:
+      return {
+        ...state,
+        isRegisteredNow: action.payload,
+      };
     case actionTypes.REGISTER_FAILURE:
     case actionTypes.LOGIN_FAILURE:
       return {
@@ -87,7 +85,7 @@ const bidReducer = (state = bidInitialState, action) => {
         loading: false,
         error: action.payload,
       };
-      // handle fetch bids
+    // handle fetch bids
     case actionTypes.FETCH_BIDS_REQUEST:
       return {
         ...state,
@@ -265,8 +263,8 @@ const auctioneerReducer = (state = auctioneerInitialState, action) => {
         error: null,
       };
     case actionTypes.CREATE_AUCTIONEER_SUCCESS:
-       // Handle success action if needed
-       return {
+      // Handle success action if needed
+      return {
         ...state,
         loading: false,
         isAuctioneerCreated: true,
@@ -287,11 +285,11 @@ const auctioneerReducer = (state = auctioneerInitialState, action) => {
         loading: false,
         error: action.payload,
       };
-      case actionTypes.DELETE_AUCTIONEER_SUCCESS:
-        return {
-          ...state,
-          auctioneers: state.auctioneers.filter(auctioneer => auctioneer.id !== action.payload),
-        };
+    case actionTypes.DELETE_AUCTIONEER_SUCCESS:
+      return {
+        ...state,
+        auctioneers: state.auctioneers.filter(auctioneer => auctioneer.id !== action.payload),
+      };
     default:
       return state;
   }

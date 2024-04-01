@@ -13,7 +13,6 @@ export const bidService = {
 };
 
 async function createBid(bidParam) {
-  console.log("bidParam", bidParam);
   const { auctionId, amount, userId, createdAt } = bidParam;
   const auction = await Auction.findById(auctionId).populate(
     "createdBy",
@@ -44,7 +43,6 @@ async function createBid(bidParam) {
 
 async function closeBid(bidId, auctionId) {
   const bid = await bidModel.findById(bidId);
-  console.log("We are here, jsut a minute bidId, auctionId", bidId, auctionId)
   if (!bid) {
     throw new CustomError("Bid not found", 404);
   }

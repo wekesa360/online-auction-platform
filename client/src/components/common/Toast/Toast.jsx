@@ -1,9 +1,9 @@
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
 
 const Toast = {
   success: (message) => {
     toast.success(message, {
-      position: 'top-right',
+      position: "top-right",
       autoClose: 4000,
       hideProgressBar: false,
       closeOnClick: true,
@@ -15,7 +15,7 @@ const Toast = {
   },
   error: (message) => {
     toast.error(message, {
-      position: 'top-right',
+      position: "top-right",
       autoClose: 4000,
       hideProgressBar: false,
       closeOnClick: true,
@@ -27,7 +27,7 @@ const Toast = {
   },
   info: (message) => {
     toast.info(message, {
-      position: 'top-right',
+      position: "top-right",
       autoClose: 4000,
       hideProgressBar: false,
       closeOnClick: true,
@@ -39,7 +39,7 @@ const Toast = {
   },
   warning: (message) => {
     toast.warning(message, {
-      position: 'top-right',
+      position: "top-right",
       autoClose: 4000,
       hideProgressBar: false,
       closeOnClick: true,

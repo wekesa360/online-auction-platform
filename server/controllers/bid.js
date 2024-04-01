@@ -43,7 +43,6 @@ async function getById(req, res, next) {
 }
 
 async function closeBid(req, res, next) {
-  console.log("We are here ;;;;;", req.params.bidId, req.params.auctionId)
   try {
     const bid = await bidService.closeBid(req.params.bidId, req.params.auctionId);
     res.json(bid);

@@ -1,26 +1,21 @@
-import React, { useState } from 'react';
-import DatePicker from 'react-datepicker';
-import { createAuction } from '../../store/actions';
-import 'react-datepicker/dist/react-datepicker.css';
-import { useDispatch } from 'react-redux';
-
-
-
+import React, { useState } from "react";
+import DatePicker from "react-datepicker";
+import { createAuction } from "../../store/actions";
+import "react-datepicker/dist/react-datepicker.css";
+import { useDispatch } from "react-redux";
 
 const AddAuctionForm = () => {
-  const dispatch = useDispatch(); 
+  const dispatch = useDispatch();
 
-
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [minimumBid, setMinimumBid] = useState('');
-  const [startingTime, setStartingTime] = useState('');
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [minimumBid, setMinimumBid] = useState("");
+  const [startingTime, setStartingTime] = useState("");
   const [startingDate, setStartingDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
-  const [endTime, setEndTime] = useState('');
-  const [startingPrice, setStartingPrice] = useState('');
-  const [imageUrl, setImageUrl] = useState('');
-  const [auctioneer, setAuctioneer] = useState('');
+  const [endTime, setEndTime] = useState("");
+  const [startingPrice, setStartingPrice] = useState("");
+  const [imageUrl, setImageUrl] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -41,20 +36,20 @@ const AddAuctionForm = () => {
       await dispatch(createAuction(newAuction));
       resetForm();
     } catch (error) {
-      console.error('Error creating auction:', error);
+      console.error("Error creating auction:", error);
     }
   };
 
   const resetForm = () => {
-    setTitle('');
-    setDescription('');
-    setMinimumBid('');
-    setStartingTime('');
+    setTitle("");
+    setDescription("");
+    setMinimumBid("");
+    setStartingTime("");
     setStartingDate(null);
     setEndDate(null);
-    setEndTime('');
-    setStartingPrice('');
-    setImageUrl('');
+    setEndTime("");
+    setStartingPrice("");
+    setImageUrl("");
   };
 
   return (
@@ -62,7 +57,9 @@ const AddAuctionForm = () => {
       <h2>Add Auction</h2>
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
-          <label htmlFor="title" className="form-label">Title</label>
+          <label htmlFor="title" className="form-label">
+            Title
+          </label>
           <input
             type="text"
             className="form-control"
@@ -73,7 +70,9 @@ const AddAuctionForm = () => {
           />
         </div>
         <div className="mb-3">
-          <label htmlFor="description" className="form-label">Description</label>
+          <label htmlFor="description" className="form-label">
+            Description
+          </label>
           <textarea
             className="form-control"
             id="description"
@@ -83,7 +82,9 @@ const AddAuctionForm = () => {
           />
         </div>
         <div className="mb-3">
-          <label htmlFor="minimumBid" className="form-label">Minimum Bid</label>
+          <label htmlFor="minimumBid" className="form-label">
+            Minimum Bid
+          </label>
           <input
             type="number"
             className="form-control"
@@ -94,7 +95,9 @@ const AddAuctionForm = () => {
           />
         </div>
         <div className="mb-3">
-          <label htmlFor="startingTime" className="form-label">Starting Time</label>
+          <label htmlFor="startingTime" className="form-label">
+            Starting Time
+          </label>
           <input
             type="time"
             className="form-control"
@@ -105,7 +108,9 @@ const AddAuctionForm = () => {
           />
         </div>
         <div className="mb-3">
-          <label htmlFor="startingDate" className="form-label">Starting Date</label>
+          <label htmlFor="startingDate" className="form-label">
+            Starting Date
+          </label>
           <DatePicker
             selected={startingDate}
             onChange={(date) => setStartingDate(date)}
@@ -114,7 +119,9 @@ const AddAuctionForm = () => {
           />
         </div>
         <div className="mb-3">
-          <label htmlFor="endDate" className="form-label">End Date</label>
+          <label htmlFor="endDate" className="form-label">
+            End Date
+          </label>
           <DatePicker
             selected={endDate}
             onChange={(date) => setEndDate(date)}
@@ -123,7 +130,9 @@ const AddAuctionForm = () => {
           />
         </div>
         <div className="mb-3">
-          <label htmlFor="endTime" className="form-label">End Time</label>
+          <label htmlFor="endTime" className="form-label">
+            End Time
+          </label>
           <input
             type="time"
             className="form-control"
@@ -134,7 +143,9 @@ const AddAuctionForm = () => {
           />
         </div>
         <div className="mb-3">
-          <label htmlFor="startingPrice" className="form-label">Starting Price</label>
+          <label htmlFor="startingPrice" className="form-label">
+            Starting Price
+          </label>
           <input
             type="number"
             className="form-control"
@@ -145,7 +156,9 @@ const AddAuctionForm = () => {
           />
         </div>
         <div className="mb-3">
-          <label htmlFor="imageUrl" className="form-label">Image URL</label>
+          <label htmlFor="imageUrl" className="form-label">
+            Image URL
+          </label>
           <input
             type="text"
             className="form-control"
@@ -155,7 +168,9 @@ const AddAuctionForm = () => {
             required
           />
         </div>
-        <button type="submit" className="btn btn-primary">Create Auction</button>
+        <button type="submit" className="btn btn-primary">
+          Create Auction
+        </button>
       </form>
     </div>
   );

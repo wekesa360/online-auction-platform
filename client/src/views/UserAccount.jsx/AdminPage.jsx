@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import AuctionList from "./AuctionList";
-import AddAuctionForm from "./AddAuctionForm";
-import AuctionManagement from "./AuctionManagement";
 import AuctionDetails from "./AuctionDetails";
 import AuctioneerManagement from "./AuctioneerManagement";
 import "./AdminPage.css";

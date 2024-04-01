@@ -4,10 +4,15 @@ import DatePicker from "react-datepicker";
 import { useDispatch, useSelector } from "react-redux";
 import Toast from "../../components/common/Toast/Toast";
 import { useDropzone } from "react-dropzone";
-import { fetchAuctioneers, closeBid, getBidderProfile, deleteAuction,
+import {
+  fetchAuctioneers,
+  closeBid,
+  getBidderProfile,
+  deleteAuction,
   updateAuction,
   createAuction,
-  fetchAuctions, } from "../../store/actions";
+  fetchAuctions,
+} from "../../store/actions";
 import "./AuctioneerManagement.css";
 
 const AuctionManagement = () => {
@@ -27,7 +32,6 @@ const AuctionManagement = () => {
     setSelectedBidder(bid.bidder);
     dispatch(getBidderProfile(bid.bidder._id));
     setBidderProfile(newBidderProfile);
-    console.log("We are here:: ", newBidderProfile);
   };
 
   const { getRootProps, getInputProps } = useDropzone({
@@ -80,7 +84,6 @@ const AuctionManagement = () => {
     setShowAddForm(true);
     setEditMode(true);
   };
-
 
   const handleRemoveImage = (index) => {
     const updatedFiles = [...files];
@@ -162,7 +165,6 @@ const AuctionManagement = () => {
   if (error) {
     return <div>Error: {error.message}</div>;
   }
-  console.log(auctions)
 
   return (
     <div className="mt-4">
@@ -437,7 +439,10 @@ const AuctionManagement = () => {
       {showBidderDetails && (
         <div className="modal">
           <div className="modal-content p-5">
-            <span className=" text-end" onClick={() => setShowBidderDetails(false)}>
+            <span
+              className=" text-end"
+              onClick={() => setShowBidderDetails(false)}
+            >
               &times;
             </span>
             <h3>Bidder Details</h3>
@@ -451,14 +456,14 @@ const AuctionManagement = () => {
               View Profile
             </button>
             {showBidderProfile && ( */}
+            <div className="">
               <div className="">
-                <div className="">
-                  <p>First name: {newBidderProfile.firstName}</p>
-                  <p>Last name: {newBidderProfile.lastName}</p>
-                  <p>Phone: {newBidderProfile.phoneNumber}</p>
-                  <p>Address: {newBidderProfile.address}</p>
-                </div>
+                <p>First name: {newBidderProfile.firstName}</p>
+                <p>Last name: {newBidderProfile.lastName}</p>
+                <p>Phone: {newBidderProfile.phoneNumber}</p>
+                <p>Address: {newBidderProfile.address}</p>
               </div>
+            </div>
             {/* )} */}
           </div>
         </div>

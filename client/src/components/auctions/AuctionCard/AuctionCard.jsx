@@ -38,8 +38,7 @@ const AuctionCard = ({
       setBidAmount("");
       setShowBidForm(false);
     };
-  }
-  , [error, auctionErrors]);
+  }, [error, auctionErrors]);
 
   const handleBidAmountChange = (e) => {
     const bidAmount = e.target.value;

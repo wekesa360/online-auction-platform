@@ -17,7 +17,6 @@ const Navbar = () => {
     Toast.success("Logout successful");
   };
 
-
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light justify-content-center">
       <div className="container">
@@ -70,7 +69,10 @@ const Navbar = () => {
                     </Link>
                   </li>
                 )}
-                <button onClick={handleLogout} className="btn btn-primary logout-btn">
+                <button
+                  onClick={handleLogout}
+                  className="btn btn-primary logout-btn"
+                >
                   <span>Logout</span>
                 </button>
               </>

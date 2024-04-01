@@ -19,7 +19,10 @@ const AuctionListing = () => {
           ...auction,
           bidStarts: `${auction.startingDate} ${auction.startingTime}`,
           bidEnds: formatDateAndTime(auction.endDate, auction.endTime),
-          currentBid: auction.bids.length > 0 ? `Ksh ${auction.bids[0].amount.toLocaleString()}` : "Ksh 0",
+          currentBid:
+            auction.bids.length > 0
+              ? `Ksh ${auction.bids[0].amount.toLocaleString()}`
+              : "Ksh 0",
         }));
         setAuctions(updatedAuctions);
         setLoading(false);
@@ -28,10 +31,10 @@ const AuctionListing = () => {
         setLoading(false);
       }
     };
-  
+
     fetchData();
     const interval = setInterval(fetchData, 30000);
-  
+
     return () => clearInterval(interval);
   }, []);
 

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { createAuctioneer,setIsRegisteredNow } from "../../store/actions";
+import { createAuctioneer, setIsRegisteredNow } from "../../store/actions";
 import "./Auctioneer.css";
 import { useNavigate } from "react-router-dom";
 import Toast from "../common/Toast/Toast";
@@ -18,7 +18,9 @@ const AuctioneerForm = () => {
   const [contactValid, setContactValid] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { isAuctioneerCreated, error } = useSelector((state) => state.auctioneer);
+  const { isAuctioneerCreated, error } = useSelector(
+    (state) => state.auctioneer
+  );
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -29,7 +31,8 @@ const AuctioneerForm = () => {
 
   const validateContact = (contact) => {
     const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
-    const phoneRegex = /^\+?\d{1,3}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}$/;
+    const phoneRegex =
+      /^\+?\d{1,3}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}$/;
     setContactValid(emailRegex.test(contact) || phoneRegex.test(contact));
   };
 
@@ -43,7 +46,9 @@ const AuctioneerForm = () => {
         console.error("Failed to register auctioneer", error.message);
       }
     } else {
-      Toast.error("Please enter a valid email or phone number with country code.");
+      Toast.error(
+        "Please enter a valid email or phone number with country code."
+      );
     }
   };
 

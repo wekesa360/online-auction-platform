@@ -8,7 +8,7 @@ const auctioneerService = {
       });
       return data;
     } catch (error) {
-      throw new Error (error.response.data.message);
+      throw new Error(error.response.data.message);
     }
   },
 

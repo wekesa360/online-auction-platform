@@ -28,7 +28,7 @@ const AppRouter = () => {
                 <Route path="/" element={<LandingPage />} />
                 <Route path="/register" element={< Register />} />
                 <Route path="/login" element={< Login />} />
-                <Route path="/auction-listing"element={<PrivateRoute isAuthenticated={isAuthenticated} element={<AuctionListing />} />} />
+                <Route path="/auction-listing" element={<PrivateRoute isAuthenticated={isAuthenticated} element={<AuctionListing />} />} />
                 <Route path="/user-account" element={<PrivateRoute isAuthenticated={isAuthenticated} element={<UserAccountPage />} />} />
                 <Route path="/register/auctioneer" element={<AuctioneerForm />} />
                 <Route path="/admin" element={<PrivateRoute isAuthenticated={isAuthenticated && user.role === 'admin'} element={<AdminPage />} />} />

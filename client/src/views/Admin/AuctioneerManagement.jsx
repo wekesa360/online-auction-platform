@@ -19,7 +19,7 @@ const AuctioneerManagement = () => {
   useEffect(() => {
     dispatch(fetchAuctioneers());
     if (error) {
-     Toast.error(`Failed: ${error.message}`);
+      Toast.error(`Failed: ${error.message}`);
     }
   }, [dispatch, error]);
 
@@ -43,16 +43,16 @@ const AuctioneerManagement = () => {
     setLogoUrl(auctioneer.logoUrl);
     setShowAddForm(true);
     setEditMode(true);
-   Toast.info("Editing auctioneer details.");
+    Toast.info("Editing auctioneer details.");
   };
 
   const handleDelete = async (auctioneerId) => {
     try {
       await dispatch(deleteAuctioneer(auctioneerId));
       await dispatch(fetchAuctioneers());
-     Toast.success("Auctioneer deleted successfully.");
+      Toast.success("Auctioneer deleted successfully.");
     } catch (error) {
-     Toast.error("Failed to delete auctioneer.");
+      Toast.error("Failed to delete auctioneer.");
     }
   };
 
@@ -70,7 +70,7 @@ const AuctioneerManagement = () => {
     try {
       if (editMode) {
         await dispatch(updateAuctioneer(selectedAuctioneer.id, newAuctioneer));
-       Toast.success("Auctioneer updated successfully.");
+        Toast.success("Auctioneer updated successfully.");
         setEditMode(false);
       } else {
         await dispatch(createAuctioneer(newAuctioneer));
@@ -80,7 +80,7 @@ const AuctioneerManagement = () => {
       await dispatch(fetchAuctioneers());
       resetForm();
     } catch (error) {
-     Toast.error(`Failed to update/add auctioneer: ${error.message}`);
+      Toast.error(`Failed to update/add auctioneer: ${error.message}`);
     }
   };
 

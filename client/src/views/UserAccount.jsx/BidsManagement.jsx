@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import "./BidManagement.css"; // Update the CSS file name
+import "./BidManagement.css";
 import AuctionDetailsModal from "../../components/auctions/AuctionDetailsModal/AuctionDetailsModal";
-import { deleteBid, updateBid, fetchBids } from "../../store/actions"; // Update the action imports
+import { deleteBid, updateBid, fetchBids } from "../../store/actions";
 
 const BidManagement = () => {
   const dispatch = useDispatch();
-  const loading = useSelector((state) => state.bid.loading); // Update state selectors
-  const bids = useSelector((state) => state.bid.bids); // Update state selectors
-  const user = useSelector((state) => state.auth.user); // Update state selectors
-  const error = useSelector((state) => state.bid.error); // Update state selectors
+  const loading = useSelector((state) => state.bid.loading);
+  const bids = useSelector((state) => state.bid.bids);
+  const user = useSelector((state) => state.auth.user);
+  const error = useSelector((state) => state.bid.error);
 
   useEffect(() => {
     dispatch(fetchBids());
@@ -18,16 +18,16 @@ const BidManagement = () => {
   const [editMode, setEditMode] = useState(false);
   const [selectedBid, setSelectedBid] = useState(null);
   const [showAddForm, setShowAddForm] = useState(false);
-  const [bidAmount, setBidAmount] = useState(""); // Update state variable name
-  const [bidderName, setBidderName] = useState(""); // Update state variable name
-  const [bidTime, setBidTime] = useState(""); // Update state variable name
+  const [bidAmount, setBidAmount] = useState("");
+  const [bidderName, setBidderName] = useState("");
+  const [bidTime, setBidTime] = useState("");
   const [viewItem, setViewItem] = useState(null);
 
   const handleEdit = (bid) => {
     setSelectedBid(bid);
-    setBidAmount(bid.amount); // Update state variable name
-    setBidderName(user.email); // Update state variable name
-    setBidTime(bid.timestamp); // Update state variable name
+    setBidAmount(bid.amount);
+    setBidderName(user.email);
+    setBidTime(bid.timestamp);
     setShowAddForm(true);
     setEditMode(true);
   };
@@ -88,12 +88,9 @@ const BidManagement = () => {
     setBidTime("");
   };
 
-  // Show loading indicator if data is still loading
   if (loading) {
     return <div>Loading...</div>;
   }
-
-  // Show error message if there's an error
   if (error) {
     return <div>Error: {error.message}</div>;
   }

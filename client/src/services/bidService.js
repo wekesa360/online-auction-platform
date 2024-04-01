@@ -58,7 +58,7 @@ const bidService = {
     try {
       const authToken = localStorage.getItem("authToken");
       const response = await api.get(`bd/bid/latest/${bidId}`, {
-      headers: { Authorization: `Bearer ${authToken}` }
+        headers: { Authorization: `Bearer ${authToken}` }
       });
       return response.data;
     } catch (error) {
@@ -66,7 +66,7 @@ const bidService = {
       throw new Error(error.response.data.message);
     }
   },
-  
+
 
   updateBid: async (id, bidData) => {
     try {

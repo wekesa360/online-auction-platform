@@ -28,8 +28,6 @@ export const login = (username, password) => async (dispatch) => {
   }
 };
 
-
-
 // Logout action creator
 export const logout = () => async (dispatch) => {
   dispatch({ type: actionTypes.LOGOUT });
@@ -76,7 +74,6 @@ export const closeBid = (bidId, auctionId) => async (dispatch) => {
   }
 }
 
-
 //update bid
 export const updateBid = (id, bidParam) => async (dispatch) => {
   dispatch({ type: actionTypes.UPDATE_BID_REQUEST });
@@ -88,7 +85,6 @@ export const updateBid = (id, bidParam) => async (dispatch) => {
   }
 };
 
-
 // delete bid
 export const deleteBid = (bidId) => async (dispatch) => {
   dispatch({ type: actionTypes.DELETE_BID_REQUEST });
@@ -99,8 +95,6 @@ export const deleteBid = (bidId) => async (dispatch) => {
     dispatch({ type: actionTypes.DELETE_BID_FAILURE, payload: error });
   }
 };
-
-
 
 // Create an auction
 export const createAuction = (data) => async (dispatch) => {
@@ -146,7 +140,6 @@ export const fetchAuctions = () => async (dispatch) => {
   }
 };
 
-
 // Create auctioneer action creator
 export const createAuctioneer = (data) => async (dispatch) => {
   dispatch({ type: actionTypes.CREATE_AUCTIONEER_REQUEST });
@@ -170,7 +163,6 @@ export const fetchUserProfile = () => async (dispatch) => {
   dispatch({ type: actionTypes.FETCH_USER_PROFILE_REQUEST });
   try {
     const userProfile = await profileService.getProfile();
-    console.log("We are here trying to debug the issue with the code below:: \n")
     dispatch({ type: actionTypes.FETCH_USER_PROFILE_SUCCESS, payload: userProfile });
   } catch (error) {
     dispatch({ type: actionTypes.FETCH_USER_PROFILE_FAILURE, payload: error });
@@ -184,7 +176,6 @@ export const updateUserProfile = (userId, updatedData) => async (dispatch) => {
     const userProfile = await profileService.updateProfile(userId, updatedData);
     dispatch({ type: actionTypes.UPDATE_USER_PROFILE_SUCCESS, payload: userProfile });
   } catch (error) {
-    console.log("We are here trying to debug the issue with the code below:: \n", error)
     dispatch({ type: actionTypes.UPDATE_USER_PROFILE_FAILURE, payload: error });
   }
 };
@@ -196,7 +187,6 @@ export const createUserProfile = (data) => async (dispatch) => {
     const userProfile = await profileService.createProfile(data);
     dispatch({ type: actionTypes.CREATE_USER_PROFILE_SUCCESS, payload: userProfile });
   } catch (error) {
-    console.log("We are here trying to debug the issue with the code below:: \n", error)
     dispatch({ type: actionTypes.CREATE_USER_PROFILE_FAILURE, payload: error });
   }
 };
@@ -211,7 +201,7 @@ export const getBidderProfile = (userId) => async (dispatch) => {
     dispatch({ type: actionTypes.GET_BIDDER_PROFILE_FAILURE, payload: error });
   }
 };
- 
+
 // deleteUserAccount
 export const deleteUserProfile = (userId) => async (dispatch) => {
   dispatch({ type: actionTypes.DELETE_USER_ACCOUNT_REQUEST });

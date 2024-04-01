@@ -1,7 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchUserProfile, createUserProfile, updateUserProfile, deleteUserProfile } from '../../store/actions';
-import Toast from '../../components/common/Toast/Toast';
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  fetchUserProfile,
+  createUserProfile,
+  updateUserProfile,
+  deleteUserProfile,
+} from "../../store/actions";
+import Toast from "../../components/common/Toast/Toast";
 
 const ProfileManagement = () => {
   const dispatch = useDispatch();
@@ -11,12 +16,12 @@ const ProfileManagement = () => {
   const loading = useSelector((state) => state.profile.loading);
 
   const [editMode, setEditMode] = useState(false);
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [email, setEmail] = useState('');
-  const [phone, setPhone] = useState('');
-  const [address, setAddress] = useState('');
-  const [profilePic, setProfilePic] = useState('');
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [address, setAddress] = useState("");
+  const [profilePic, setProfilePic] = useState("");
 
   useEffect(() => {
     dispatch(fetchUserProfile());
@@ -27,12 +32,12 @@ const ProfileManagement = () => {
 
   useEffect(() => {
     if (userProfile) {
-      setFirstName(userProfile.firstName || '');
-      setLastName(userProfile.lastName || '');
+      setFirstName(userProfile.firstName || "");
+      setLastName(userProfile.lastName || "");
       setEmail(user.email);
-      setPhone(userProfile.phoneNumber || '');
-      setAddress(userProfile.address || '');
-      setProfilePic(userProfile.profilePic || '');
+      setPhone(userProfile.phoneNumber || "");
+      setAddress(userProfile.address || "");
+      setProfilePic(userProfile.profilePic || "");
     }
   }, [userProfile, user]);
 
@@ -46,12 +51,12 @@ const ProfileManagement = () => {
       lastName,
       phoneNumber: phone,
       address,
-      profilePic
+      profilePic,
     };
     dispatch(createUserProfile(newProfile));
     dispatch(fetchUserProfile());
     if (!error) {
-      Toast.success('Profile created successfully.');
+      Toast.success("Profile created successfully.");
     }
     // setFirstName('');
     // setLastName('');
@@ -61,7 +66,6 @@ const ProfileManagement = () => {
     // setProfilePic('');
     setEditMode(true);
   };
-  
 
   const handleSave = () => {
     const updatedProfile = {
@@ -76,37 +80,41 @@ const ProfileManagement = () => {
     setEditMode(false);
     dispatch(fetchUserProfile());
     if (!error) {
-      Toast.success('Profile updated successfully.');
+      Toast.success("Profile updated successfully.");
     }
   };
 
   const handleCancel = () => {
     setEditMode(false);
-    setFirstName(userProfile?.firstName || '');
-    setLastName(userProfile?.lastName || '');
-    setEmail(userProfile?.email || '');
-    setPhone(userProfile?.phoneNumber || '');
-    setAddress(userProfile?.address || '');
-    setProfilePic(userProfile?.profilePic || '');
+    setFirstName(userProfile?.firstName || "");
+    setLastName(userProfile?.lastName || "");
+    setEmail(userProfile?.email || "");
+    setPhone(userProfile?.phoneNumber || "");
+    setAddress(userProfile?.address || "");
+    setProfilePic(userProfile?.profilePic || "");
   };
 
   const handleDeleteProfile = () => {
     if (!userProfile) {
-      window.confirm('You do not have a profile to delete.')
+      window.confirm("You do not have a profile to delete.");
       return;
     }
-    if (window.confirm('Are you sure you want to delete your profile? This action cannot be undone.')) {
+    if (
+      window.confirm(
+        "Are you sure you want to delete your profile? This action cannot be undone."
+      )
+    ) {
       dispatch(deleteUserProfile());
       dispatch(fetchUserProfile());
       if (!error) {
-        Toast.success('Profile deleted successfully.');
+        Toast.success("Profile deleted successfully.");
       }
-      setFirstName('');
-      setLastName('');
-      setEmail('');
-      setPhone('');
-      setAddress('');
-      setProfilePic('');
+      setFirstName("");
+      setLastName("");
+      setEmail("");
+      setPhone("");
+      setAddress("");
+      setProfilePic("");
     }
   };
 
@@ -192,19 +200,35 @@ const ProfileManagement = () => {
         </div>
         {editMode ? (
           <>
-            <button type="button" className="btn btn-primary" onClick={handleSave}>
+            <button
+              type="button"
+              className="btn btn-primary"
+              onClick={handleSave}
+            >
               Save
             </button>
-            <button type="button" className="btn btn-secondary" onClick={handleCancel}>
+            <button
+              type="button"
+              className="btn btn-secondary"
+              onClick={handleCancel}
+            >
               Cancel
             </button>
           </>
         ) : (
-          <button type="button" className="btn btn-primary" onClick={userProfile ? handleEdit : handleAddProfile}>
-            {userProfile ? 'Edit Profile' : 'Add Profile'}
+          <button
+            type="button"
+            className="btn btn-primary"
+            onClick={userProfile ? handleEdit : handleAddProfile}
+          >
+            {userProfile ? "Edit Profile" : "Add Profile"}
           </button>
         )}
-        <button type="button" className="btn btn-danger" onClick={handleDeleteProfile}>
+        <button
+          type="button"
+          className="btn btn-danger"
+          onClick={handleDeleteProfile}
+        >
           Delete Profile
         </button>
       </form>
