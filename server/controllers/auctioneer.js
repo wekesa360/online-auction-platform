@@ -5,13 +5,12 @@ import { request } from 'express';
 // Controller function to create a new auctioneer
 export const createAuctioneer = async (req, res, next) => {
   try {
-    const { _id: admin } = req.user; 
+    const { _id: admin } = req.user;
     req.body.admin = admin;
-    
+
     await auctioneerService.createAuctioneer(req.body);
     res.status(201).json({ message: 'Auctioneer created successfully' });
   } catch (error) {
-    // error message === E11000 duplicate key error collection: test.auctioneers index: name_1 dup key: { name: "The KC" }
     if (error.message.includes('E11000')) {
       next(new CustomError('Auctioneer already exists', 400));
     } else {

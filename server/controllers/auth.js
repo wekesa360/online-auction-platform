@@ -71,7 +71,7 @@ const getAuthUser = async (req, res, next) => {
   } catch (error) {
     next(error);
   }
-  
+
 }
 
 export { register, login, getAuthUser };
