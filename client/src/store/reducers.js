@@ -134,6 +134,7 @@ const bidReducer = (state = bidInitialState, action) => {
 // Profile reducer
 const profileInitialState = {
   profile: null,
+  bidderProfile: null,
   loading: false,
   error: null,
 };
@@ -173,6 +174,25 @@ const profileReducer = (state = profileInitialState, action) => {
         error: null,
       };
 
+    case actionTypes.GET_BIDDER_PROFILE_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+    case actionTypes.GET_BIDDER_PROFILE_REQUEST:
+      return {
+        ...state,
+        loading: true,
+        error: null,
+      };
+    case actionTypes.GET_BIDDER_PROFILE_SUCCESS:
+      return {
+        ...state,
+        bidderProfile: action.payload,
+        loading: false,
+        error: null,
+      }
     case actionTypes.CREATE_USER_PROFILE_REQUEST:
       return {
         ...state,

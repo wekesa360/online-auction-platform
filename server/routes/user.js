@@ -15,7 +15,7 @@ router.get("/profile", authenticate, authorize(["user", "admin"]), getProfile);
 router.post("/profile", authenticate, authorize(["user", "admin"]), createProfile);
 router.put("/profile", authenticate, authorize(["user", "admin"]), updateProfile);
 router.delete("/profile", authenticate, authorize(["user", "admin"]), deleteProfile);
-
+router.get("/profile/:userId", authenticate, authorize(["user", "admin"]), getProfile);
 router.post(
   "/revoke-token",
   authenticate,

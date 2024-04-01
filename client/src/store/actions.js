@@ -200,6 +200,17 @@ export const createUserProfile = (data) => async (dispatch) => {
     dispatch({ type: actionTypes.CREATE_USER_PROFILE_FAILURE, payload: error });
   }
 };
+
+// getUserProfile
+export const getBidderProfile = (userId) => async (dispatch) => {
+  dispatch({ type: actionTypes.GET_BIDDER_PROFILE_REQUEST });
+  try {
+    const userProfile = await profileService.getUserProfile(userId);
+    dispatch({ type: actionTypes.GET_BIDDER_PROFILE_SUCCESS, payload: userProfile });
+  } catch (error) {
+    dispatch({ type: actionTypes.GET_BIDDER_PROFILE_FAILURE, payload: error });
+  }
+};
  
 // deleteUserAccount
 export const deleteUserProfile = (userId) => async (dispatch) => {

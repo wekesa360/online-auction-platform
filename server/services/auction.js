@@ -15,8 +15,16 @@ async function createAuction(auctionParam) {
 }
 
 async function getAll() {
-  return await AuctionModel.find().populate('auctioneer').populate('bids');
+  return await AuctionModel.find()
+    .populate('auctioneer')
+    .populate({
+      path: 'bids',
+      populate: {
+        path: 'bidder'
+      }
+    });
 }
+
 
 async function getById(id) {
   const auction = await AuctionModel.findById(id).populate('auctioneer');

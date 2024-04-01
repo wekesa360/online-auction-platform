@@ -4,14 +4,10 @@ import DatePicker from "react-datepicker";
 import { useDispatch, useSelector } from "react-redux";
 import Toast from "../../components/common/Toast/Toast";
 import { useDropzone } from "react-dropzone";
-import { fetchAuctioneers, closeBid } from "../../store/actions";
-
-import {
-  deleteAuction,
+import { fetchAuctioneers, closeBid, getBidderProfile, deleteAuction,
   updateAuction,
   createAuction,
-  fetchAuctions,
-} from "../../store/actions";
+  fetchAuctions, } from "../../store/actions";
 import "./AuctioneerManagement.css";
 
 const AuctionManagement = () => {
@@ -21,12 +17,17 @@ const AuctionManagement = () => {
   const error = useSelector((state) => state.auction.error);
   const auctioneers = useSelector((state) => state.auctioneer.auctioneers);
   const [auctioneer, setAuctioneer] = useState("");
+  const newBidderProfile = useSelector((state) => state.profile.bidderProfile);
   const [showBidderDetails, setShowBidderDetails] = useState(false);
   const [selectedBidder, setSelectedBidder] = useState(null);
+  const [bidderProfile, setBidderProfile] = useState(null);
 
   const getBidderDetails = (bid) => {
     setShowBidderDetails(true);
     setSelectedBidder(bid.bidder);
+    dispatch(getBidderProfile(bid.bidder._id));
+    setBidderProfile(newBidderProfile);
+    console.log("We are here:: ", newBidderProfile);
   };
 
   const { getRootProps, getInputProps } = useDropzone({
@@ -80,6 +81,7 @@ const AuctionManagement = () => {
     setEditMode(true);
   };
 
+
   const handleRemoveImage = (index) => {
     const updatedFiles = [...files];
     updatedFiles.splice(index, 1);
@@ -106,7 +108,6 @@ const AuctionManagement = () => {
     formData.append("startingPrice", startingPrice);
     formData.append("imageUrl", imageUrl);
     formData.append("auctioneer", auctioneer);
-    // Append the uploaded files to the formData
     files.forEach((file) => {
       formData.append("image", file);
     });
@@ -161,6 +162,7 @@ const AuctionManagement = () => {
   if (error) {
     return <div>Error: {error.message}</div>;
   }
+  console.log(auctions)
 
   return (
     <div className="mt-4">
@@ -392,7 +394,7 @@ const AuctionManagement = () => {
                             className="btn btn-link"
                             onClick={() => getBidderDetails(bid)}
                           >
-                            {bid.bidder.name}
+                            {bid.bidder.username}
                           </button>
                         </td>
                         <td>
@@ -434,14 +436,30 @@ const AuctionManagement = () => {
       </table>
       {showBidderDetails && (
         <div className="modal">
-          <div className="modal-content">
-            <span className="close" onClick={() => setShowBidderDetails(false)}>
+          <div className="modal-content p-5">
+            <span className=" text-end" onClick={() => setShowBidderDetails(false)}>
               &times;
             </span>
             <h3>Bidder Details</h3>
-            <p>Name: {selectedBidder.username}</p>
+            <p>username: {selectedBidder.username}</p>
             <p>Email: {selectedBidder.email}</p>
-            {/* Add more bidder details here */}
+            {/* button to update user profile*/}
+            {/* <button
+              className="btn btn-primary"
+              onClick={() => handleShowProfile(selectedBidder._id)}
+            >
+              View Profile
+            </button>
+            {showBidderProfile && ( */}
+              <div className="">
+                <div className="">
+                  <p>First name: {newBidderProfile.firstName}</p>
+                  <p>Last name: {newBidderProfile.lastName}</p>
+                  <p>Phone: {newBidderProfile.phoneNumber}</p>
+                  <p>Address: {newBidderProfile.address}</p>
+                </div>
+              </div>
+            {/* )} */}
           </div>
         </div>
       )}

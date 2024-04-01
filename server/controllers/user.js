@@ -27,6 +27,15 @@ export const updateProfile = async (req, res, next) => {
   }
 };
 
+export const getUserProfile = async (req, res, next) => {
+  try {
+    const profile = await userService.getById(req.params.userId);
+    res.json(profile);
+  } catch (error) {
+    next(error);
+  }
+}
+
 export const deleteProfile = async (req, res, next) => {
   try {
     await userService.deleteUserProfile(req.user.id);

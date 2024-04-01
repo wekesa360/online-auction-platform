@@ -14,6 +14,18 @@ const profileService = {
     }
   },
 
+  getUserProfile: async (userId) => {
+    try {
+      const authToken = localStorage.getItem("authToken");
+      const { data } = await api.get(`user/profile/${userId}`, {
+        headers: { Authorization: `Bearer ${authToken}` }
+      });
+      return data;
+    } catch (error) {
+      throw new Error(error.response.data.message);
+    }
+  },
+
   createProfile: async (profileData) => {
     try {
       const authToken = localStorage.getItem("authToken");
