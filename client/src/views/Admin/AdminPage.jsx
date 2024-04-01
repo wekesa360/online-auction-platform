@@ -4,26 +4,13 @@ import AuctionList from "./AuctionList";
 import AddAuctionForm from "./AddAuctionForm";
 import AuctionManagement from "./AuctionManagement";
 import AuctionDetails from "./AuctionDetails";
+import ProfileManagement from "../../components/profile/Profile";
 import AuctioneerManagement from "./AuctioneerManagement";
 import "./AdminPage.css";
 
 const AdminPage = () => {
-  const [auctions, setAuctions] = useState([]);
-  const [selectedAuction, setSelectedAuction] = useState(null);
   const [activeSection, setActiveSection] = useState("auctionList");
 
-  useEffect(() => {
-    fetchAuctions();
-  }, []);
-
-  const fetchAuctions = async () => {
-    try {
-      const response = await axios.get("/auction");
-      setAuctions(response.data);
-    } catch (error) {
-      console.error("Error fetching auctions:", error);
-    }
-  };
 
   const handleSectionChange = (section) => {
     setActiveSection(section);
@@ -31,17 +18,14 @@ const AdminPage = () => {
 
   const renderSection = () => {
     switch (activeSection) {
-      // case "auctionList":
-      //   return (
-      //     <AuctionList
-      //       auctions={auctions}
-      //       onAuctionClick={setSelectedAuction}
-      //     />
-      //   );
+      case "Profile":
+        return (
+          <ProfileManagement/>
+        );
       case "addAuction":
-        return <AuctionManagement onAuctionAdded={fetchAuctions} />;
+        return <AuctionManagement/>;
       case "auctionDetails":
-        return <AuctionDetails auction={selectedAuction} />;
+        return <AuctionDetails />;
       case "auctioneerManagement":
         return <AuctioneerManagement />;
       default:
@@ -61,12 +45,12 @@ const AdminPage = () => {
                 <div className="sidebar-sticky">
                   <ul className="nav flex-column">
                     <li className="nav-item">
-                      {/* <button
+                      <button
                         className="nav-link btn btn-link text-start"
-                        onClick={() => handleSectionChange("auctionList")}
+                        onClick={() => handleSectionChange("Profile")}
                       >
-                        <i className="bi bi-list-ul"></i> Auction List
-                      </button> */}
+                        <i className="bi bi-person"></i> Manage Profile
+                      </button>
                     </li>
                     <li className="nav-item">
                       <button

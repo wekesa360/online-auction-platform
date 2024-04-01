@@ -94,6 +94,25 @@ const bidReducer = (state = bidInitialState, action) => {
         loading: true,
         error: null,
       };
+    case actionTypes.CLOSE_BID_REQUEST:
+      return {
+        ...state,
+        loading: true,
+        error: null,
+      };
+    case actionTypes.CLOSE_BID_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        error: null,
+      };
+
+    case actionTypes.CLOSE_BID_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
     case actionTypes.FETCH_BIDS_SUCCESS:
       return {
         ...state,
@@ -114,12 +133,32 @@ const bidReducer = (state = bidInitialState, action) => {
 
 // Profile reducer
 const profileInitialState = {
+  profile: null,
   loading: false,
   error: null,
 };
 
 const profileReducer = (state = profileInitialState, action) => {
   switch (action.type) {
+    case actionTypes.FETCH_USER_PROFILE_REQUEST:
+      return {
+        ...state,
+        loading: true,
+        error: null,
+      };
+    case actionTypes.FETCH_USER_PROFILE_SUCCESS:
+      return {
+        ...state,
+        profile: action.payload,
+        loading: false,
+        error: null,
+      };
+    case actionTypes.FETCH_USER_PROFILE_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
     case actionTypes.EDIT_USER_PROFILE_REQUEST:
       return {
         ...state,
@@ -133,6 +172,28 @@ const profileReducer = (state = profileInitialState, action) => {
         loading: false,
         error: null,
       };
+
+    case actionTypes.CREATE_USER_PROFILE_REQUEST:
+      return {
+        ...state,
+        loading: true,
+        error: null,
+      };
+    case actionTypes.CREATE_USER_PROFILE_SUCCESS:
+      // Handle success action if needed
+      return {
+        ...state,
+        loading: false,
+        error: null,
+      };
+    case actionTypes.CREATE_USER_PROFILE_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+
+      }
+
     case actionTypes.EDIT_USER_PROFILE_FAILURE:
       return {
         ...state,

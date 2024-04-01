@@ -37,7 +37,6 @@ const Login = () => {
         Toast.error(error.message);
       } else if (isAuthenticated) {
         Toast.success("Login successful");
-        console.log(user.role, isRegisteredNow)
         if (user.role === "admin" && isRegisteredNow) {
           navigate("/register/auctioneer");
         } else {

@@ -1,35 +1,10 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React, { useState } from "react";
 import "./AdminPage.css";
-import BidsManagement from "./BidsManagement"; // Import the BidsManagement component
+import BidsManagement from "./BidsManagement";
+import ProfileManagement from "../../components/profile/Profile";
 
 const UserAccountPage = () => {
-  const [profile, setProfile] = useState(null);
-  const [bids, setBids] = useState([]);
   const [activeSection, setActiveSection] = useState("Manage Your Bids");
-
-  useEffect(() => {
-    fetchProfile();
-    fetchBids();
-  }, []);
-
-  const fetchProfile = async () => {
-    try {
-      const response = await axios.get("/profile");
-      setProfile(response.data);
-    } catch (error) {
-      console.error("Error fetching profile:", error);
-    }
-  };
-
-  const fetchBids = async () => {
-    try {
-      const response = await axios.get("/bids");
-      setBids(response.data);
-    } catch (error) {
-      console.error("Error fetching bids:", error);
-    }
-  };
 
   const handleSectionChange = (section) => {
     setActiveSection(section);
@@ -38,23 +13,13 @@ const UserAccountPage = () => {
   const renderSection = () => {
     switch (activeSection) {
       case "Your Bids":
-        return <BidsManagement bids={bids} />; // Render BidsManagement component
-      // case "Profile":
-      //   return <Profile profile={profile} />; // Render Profile component
+        return <BidsManagement />; // Render BidsManagement component
+      case "Profile":
+        return <ProfileManagement/>; // Render Profile component
       // case "Manage Account":
       //   return <ManageAccount onDeleteAccount={deleteAccount} />; // Render ManageAccount component
       default:
         return null;
-    }
-  };
-
-  const deleteAccount = async () => {
-    try {
-      // Add logic to delete the user account
-      console.log("User account deleted successfully!");
-      fetchBids();
-    } catch (error) {
-      console.error("Error deleting account:", error);
     }
   };
 
@@ -69,6 +34,14 @@ const UserAccountPage = () => {
               <div className="sidebar">
                 <div className="sidebar-sticky">
                   <ul className="nav flex-column">
+                  <li className="nav-item">
+                      <button
+                        className="nav-link btn btn-link text-start"
+                        onClick={() => handleSectionChange("Profile")}
+                      >
+                        <i className="bi bi-person"></i> Profile
+                      </button>
+                    </li>
                     <li className="nav-item">
                       <button
                         className="nav-link btn btn-link text-start"
@@ -78,14 +51,7 @@ const UserAccountPage = () => {
                         Bids
                       </button>
                     </li>
-                    {/* <li className="nav-item">
-                      <button
-                        className="nav-link btn btn-link text-start"
-                        onClick={() => handleSectionChange("Profile")}
-                      >
-                        <i className="bi bi-person"></i> Profile
-                      </button>
-                    </li> */}
+                  
                     {/* <li className="nav-item">
                       <button
                         className="nav-link btn btn-link text-start"

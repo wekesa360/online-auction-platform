@@ -5,6 +5,7 @@ const bidController = {
   getAll,
   getById,
   update,
+  closeBid,
   _delete,
 };
 
@@ -41,6 +42,16 @@ async function getById(req, res, next) {
   }
 }
 
+async function closeBid(req, res, next) {
+  console.log("We are here ;;;;;", req.params.bidId, req.params.auctionId)
+  try {
+    const bid = await bidService.closeBid(req.params.bidId, req.params.auctionId);
+    res.json(bid);
+  } catch (error) {
+    next(error);
+  }
+
+}
 
 async function update(req, res, next) {
   try {
@@ -55,7 +66,6 @@ async function update(req, res, next) {
 
 async function _delete(req, res, next) {
   try {
-    console.log("We are here", req.params.id);
     await bidService._delete(req.params.id);
     res.json({ message: "Bid deleted successfully" });
   } catch (error) {

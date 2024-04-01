@@ -7,6 +7,7 @@ export const bidService = {
   createBid,
   getBids,
   getBid,
+  closeBid,
   updateBid,
   _delete,
 };
@@ -40,11 +41,30 @@ async function createBid(bidParam) {
   return savedBid;
 }
 
+
+async function closeBid(bidId, auctionId) {
+  const bid = await bidModel.findById(bidId);
+  console.log("We are here, jsut a minute bidId, auctionId", bidId, auctionId)
+  if (!bid) {
+    throw new CustomError("Bid not found", 404);
+  }
+  const auction = await Auction.findById(auctionId);
+  if (!auction) {
+    throw new CustomError("Auction not found", 404);
+  }
+  auction.status = true;
+  await auction.save();
+  bid.status = true;
+  await bid.save();
+  return bid;
+}
+
+
 async function getBids() {
   return await bidModel
     .find()
     .populate("auction")
-    .populate("bidder", "username");
+    .populate("bidder");
 }
 
 async function updateBid(id, bidParam) {
@@ -68,7 +88,6 @@ async function getBid(id) {
 }
 
 async function _delete(id) {
-  console.log("We are here in delete bid")
   await bidModel.findByIdAndDelete(id);
 }
 

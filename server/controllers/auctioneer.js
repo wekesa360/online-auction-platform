@@ -8,7 +8,6 @@ export const createAuctioneer = async (req, res, next) => {
     const { _id: admin } = req.user; 
     req.body.admin = admin;
     
-    console.log(req.body);
     await auctioneerService.createAuctioneer(req.body);
     res.status(201).json({ message: 'Auctioneer created successfully' });
   } catch (error) {
@@ -58,7 +57,6 @@ export const updateAuctioneer = async (req, res, next) => {
 // Controller function to delete an auctioneer
 export const deleteAuctioneer = async (req, res, next) => {
   try {
-    console.log("THe id to be deleted", req.params.id);
     await auctioneerService.deleteAuctioneer(req.params.id);
     res.json({ message: 'Auctioneer deleted successfully' });
   } catch (error) {

@@ -70,6 +70,14 @@ const UserProfileSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'User',
   },
+  firstName: {
+    type: String,
+    required: [true, 'Please provide a first name'],
+  },
+  lastName: {
+    type: String,
+    required: [true, 'Please provide a last name'],
+  },
   phoneNumber: {
     type: String,
     required: [true, 'Please provide a phone number'],

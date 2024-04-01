@@ -3,7 +3,6 @@ import { User } from '../models/user.js';
 import config from '../config.js';
 
 const authenticate = async (req, res, next) => {
-  console.log("In authenticate", req.headers.authorization)
   const token = req.headers.authorization?.split(' ')[1];
 
   if (!token) {
@@ -21,7 +20,6 @@ const authenticate = async (req, res, next) => {
     if (user.revokedTokens.includes(token)) {
       return res.status(401).json({ message: 'Token has been revoked' });
     }
-    console.log("User", user)
     req.user = user;
     next();
   } catch (error) {

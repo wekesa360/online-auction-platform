@@ -65,9 +65,20 @@ export const fetchBids = () => async (dispatch) => {
   }
 }
 
+// closeBid and Auction 
+export const closeBid = (bidId, auctionId) => async (dispatch) => {
+  dispatch({ type: actionTypes.CLOSE_BID_REQUEST });
+  try {
+    const bids = await bidService.closeBid(bidId, auctionId);
+    dispatch({ type: actionTypes.CLOSE_BID_SUCCESS, payload: bids });
+  } catch (error) {
+    dispatch({ type: actionTypes.CLOSE_BID_FAILURE, payload: error });
+  }
+}
+
 
 //update bid
-export const updateBid = () => async (dispatch) => {
+export const updateBid = (id, bidParam) => async (dispatch) => {
   dispatch({ type: actionTypes.UPDATE_BID_REQUEST });
   try {
     const bids = await bidService.getAllBids();
@@ -135,16 +146,6 @@ export const fetchAuctions = () => async (dispatch) => {
   }
 };
 
-// Edit user profile action creator
-export const editUserProfile = (userId, updatedData) => async (dispatch) => {
-  dispatch({ type: actionTypes.EDIT_USER_PROFILE_REQUEST });
-  try {
-    const updatedProfile = await profileService.editUserProfile(userId, updatedData);
-    dispatch({ type: actionTypes.EDIT_USER_PROFILE_SUCCESS, payload: updatedProfile });
-  } catch (error) {
-    dispatch({ type: actionTypes.EDIT_USER_PROFILE_FAILURE, payload: error });
-  }
-};
 
 // Create auctioneer action creator
 export const createAuctioneer = (data) => async (dispatch) => {
@@ -164,12 +165,59 @@ export const setIsRegisteredNow = (isRegistered) => {
   };
 };
 
+// fetchUserProfile 
+export const fetchUserProfile = () => async (dispatch) => {
+  dispatch({ type: actionTypes.FETCH_USER_PROFILE_REQUEST });
+  try {
+    const userProfile = await profileService.getProfile();
+    console.log("We are here trying to debug the issue with the code below:: \n")
+    dispatch({ type: actionTypes.FETCH_USER_PROFILE_SUCCESS, payload: userProfile });
+  } catch (error) {
+    dispatch({ type: actionTypes.FETCH_USER_PROFILE_FAILURE, payload: error });
+  }
+};
+
+// updateUserProfile
+export const updateUserProfile = (userId, updatedData) => async (dispatch) => {
+  dispatch({ type: actionTypes.UPDATE_USER_PROFILE_REQUEST });
+  try {
+    const userProfile = await profileService.updateProfile(userId, updatedData);
+    dispatch({ type: actionTypes.UPDATE_USER_PROFILE_SUCCESS, payload: userProfile });
+  } catch (error) {
+    console.log("We are here trying to debug the issue with the code below:: \n", error)
+    dispatch({ type: actionTypes.UPDATE_USER_PROFILE_FAILURE, payload: error });
+  }
+};
+
+// createUserProfile
+export const createUserProfile = (data) => async (dispatch) => {
+  dispatch({ type: actionTypes.CREATE_USER_PROFILE_REQUEST });
+  try {
+    const userProfile = await profileService.createProfile(data);
+    dispatch({ type: actionTypes.CREATE_USER_PROFILE_SUCCESS, payload: userProfile });
+  } catch (error) {
+    console.log("We are here trying to debug the issue with the code below:: \n", error)
+    dispatch({ type: actionTypes.CREATE_USER_PROFILE_FAILURE, payload: error });
+  }
+};
+ 
+// deleteUserAccount
+export const deleteUserProfile = (userId) => async (dispatch) => {
+  dispatch({ type: actionTypes.DELETE_USER_ACCOUNT_REQUEST });
+  try {
+    await profileService.deleteProfile(userId);
+    dispatch({ type: actionTypes.DELETE_USER_ACCOUNT_SUCCESS, payload: userId });
+  } catch (error) {
+    dispatch({ type: actionTypes.DELETE_USER_ACCOUNT_FAILURE, payload: error });
+  }
+};
+
+
 // get all auctioneers
 export const fetchAuctioneers = () => async (dispatch) => {
   dispatch({ type: actionTypes.FETCH_AUCTIONEERS_REQUEST });
   try {
     const auctioneers = await auctioneerService.getAllAuctioneers();
-    console.log("In actions [Auctioneers] : ", auctioneers);
     dispatch({ type: actionTypes.FETCH_AUCTIONEERS_SUCCESS, payload: auctioneers });
   } catch (error) {
     dispatch({ type: actionTypes.FETCH_AUCTIONEERS_FAILURE, payload: error });
@@ -184,7 +232,6 @@ export const updateAuctioneer = (auctioneerId, updatedData) => async (dispatch) 
     dispatch({ type: actionTypes.EDIT_AUCTIONEER_SUCCESS, payload: updatedAuctioneer });
     dispatch(fetchAuctioneers());
   } catch (error) {
-    console.log("Error in actions [Auctioneers] : ", error);
     dispatch({ type: actionTypes.EDIT_AUCTIONEER_FAILURE, payload: error });
   }
 };

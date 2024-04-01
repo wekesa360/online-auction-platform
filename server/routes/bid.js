@@ -17,7 +17,6 @@ router.get(
   authorize(["user", "admin"]),
   bidController.getById
 );
-
 router.post(
   "/bid",
   authenticate,
@@ -30,7 +29,12 @@ router.put(
   authorize(["user"]),
   bidController.update
 );
-
+router.post(
+  "/bid/close/:bidId/:auctionId",
+  authenticate,
+  authorize(["admin"]),
+  bidController.closeBid
+);
 router.delete(
   "/bid/:id",
   authenticate,

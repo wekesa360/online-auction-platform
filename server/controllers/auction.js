@@ -22,9 +22,7 @@ const auctionController = {
 
 
 async function createAuction(req, res, next) {
-  console.log("The request body for auctions: \n", req.body.auctioneer);
   try {
-    console.log("The request body for auctions: \n", req.body.auctioneer);
 
     const uploadDirectory = path.join(__dirname, '../uploads'); // Corrected path to the upload directory
     const fileExtension = path.extname(req.file.originalname);

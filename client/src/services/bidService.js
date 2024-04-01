@@ -27,7 +27,6 @@ const bidService = {
 
   createBid: async (auctionId, bidAmount) => {
     try {
-      console.log(auctionId, bidAmount)
       const authToken = localStorage.getItem("authToken");
       const bidData = {
         auctionId: auctionId,
@@ -41,6 +40,19 @@ const bidService = {
       throw new Error(error.response.data.message);
     }
   },
+
+  closeBid: async (bidId, auctionId) => {
+    try {
+      const authToken = localStorage.getItem("authToken");
+      const { data } = await api.post(`bd/bid/close/${bidId}/${auctionId}`, {}, {
+        headers: { Authorization: `Bearer ${authToken}` }
+      });
+      return data;
+    } catch (error) {
+      throw new Error(error.response.data.message);
+    }
+  },
+
 
   getLatestBidForAuction: async (bidId) => {
     try {

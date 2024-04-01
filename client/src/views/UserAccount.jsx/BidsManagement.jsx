@@ -11,8 +11,6 @@ const BidManagement = () => {
   const user = useSelector((state) => state.auth.user); // Update state selectors
   const error = useSelector((state) => state.bid.error); // Update state selectors
 
-  console.log(user);
-
   useEffect(() => {
     dispatch(fetchBids());
   }, [dispatch]);
@@ -66,7 +64,6 @@ const BidManagement = () => {
     setViewItem(null);
   };
 
-  console.log(bids);
   const handleSubmit = async (e) => {
     e.preventDefault();
 
